@@ -47,5 +47,15 @@
             ?>
         </div>
     </div>
-    <script src="<?php echo get_template_directory_uri() . '/assets/js/main.js'; ?>" defer></script>
+    <?php wp_head(); ?>
+
+    <!-- Variables JavaScript para contactFormAjax -->
+    <script>
+        window.contactFormAjax = {
+            ajaxurl: '<?php echo admin_url('admin-ajax.php'); ?>',
+            nonce: '<?php echo wp_create_nonce('contact_form_nonce'); ?>',
+            siteUrl: '<?php echo get_site_url(); ?>',
+            homeUrl: '<?php echo get_home_url(); ?>'
+        };
+    </script>
 </header>

@@ -8,6 +8,7 @@
 require get_template_directory() . '/includes/general_functions.php';
 require get_template_directory() . '/includes/js_css.php';
 require get_template_directory() . '/includes/class-wp-nav-menu-link-class.php';
+require get_template_directory() . '/includes/contact-form-handler.php';
 
 function remove_editor()
 {
