@@ -376,6 +376,296 @@ a {
   }
 }
 
+// Documents Section styles
+.documents-section {
+  padding: 100px 5%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  @media (max-width: 768px) {
+    padding: 80px 5%;
+    gap: 88px;
+  }
+
+  .section-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .btn-more-info {
+      background-color: black !important;
+      @media (max-width: 768px) {
+        order: 1;
+      }
+    }
+
+    .section-title-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 55%;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      .section-title {
+        font-weight: 700;
+        font-style: Italic;
+        font-size: 20px;
+        line-height: 21.33px;
+        letter-spacing: 0%;
+        text-align: right;
+        text-transform: uppercase;
+        @media (max-width: 768px) {
+          font-weight: 700;
+          font-style: Italic;
+          font-size: 18px;
+          line-height: 21.33px;
+          letter-spacing: 0%;
+          text-align: right;
+          text-transform: uppercase;
+        }
+      }
+
+      .section-subtitle {
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 40px;
+        line-height: 44px;
+        letter-spacing: -0.4px;
+        text-align: right;
+        @media (max-width: 768px) {
+          font-size: 24px;
+          line-height: 100%;
+          letter-spacing: -0.4px;
+          text-align: right;
+        }
+      }
+
+      .section-description {
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: -1%;
+        text-align: right;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .documents-swiper-container {
+    position: relative;
+    overflow: hidden;
+
+    .documents-swiper {
+      box-sizing: border-box;
+      overflow: hidden;
+      width: calc(100% - 100px);
+      .swiper-slide {
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .document-card {
+        background: white;
+        padding: 24px;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 32px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        min-height: 111px;
+        width: 100%;
+
+        &:hover {
+          background: #2f5b980a;
+        }
+
+        .document-icon {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 62px;
+          height: 62px;
+          background: $secondary-red;
+          border-radius: 4px;
+          svg {
+            width: 31px;
+            height: 31px;
+          }
+        }
+
+        .document-content {
+          display: flex;
+          flex-direction: column;
+
+          .document-title {
+            font-weight: 400;
+            font-style: Regular;
+            font-size: 20px;
+            line-height: 28px;
+            letter-spacing: 0%;
+          }
+
+          .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+            background: transparent;
+            color: #a7a9ac;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 140%;
+            letter-spacing: 0%;
+            text-align: center;
+
+            &:hover {
+              background: #f8f9fa;
+              border-color: #999;
+              border-bottom: 1px solid #999;
+              color: #333;
+            }
+
+            .download-icon {
+              width: 15px;
+              height: 15px;
+              transition: transform 0.3s ease;
+            }
+
+            &:hover .download-icon {
+              transform: translateY(1px);
+            }
+          }
+        }
+      }
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      color: $primary-red;
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+
+      &:after {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      &:hover {
+        background: $primary-red;
+        color: white;
+        border-color: $primary-red;
+        box-shadow: 0 4px 12px rgba(215, 31, 38, 0.3);
+      }
+    }
+
+    .swiper-button-next {
+      right: 0;
+    }
+
+    .swiper-button-prev {
+      left: 0;
+    }
+  }
+
+  .single-document {
+    display: flex;
+    justify-content: center;
+
+    .document-card {
+      background: white;
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e9ecef;
+      max-width: 400px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .document-icon {
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        background: $primary-red;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(215, 31, 38, 0.3);
+
+        svg {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      .document-content {
+        width: 100%;
+
+        .document-title {
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 1.3;
+          color: #333;
+          margin-bottom: 24px;
+        }
+
+        .download-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 24px;
+          background: $primary-red;
+          border: none;
+          border-radius: 8px;
+          color: white;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 16px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: darken($primary-red, 10%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(215, 31, 38, 0.4);
+          }
+
+          .download-icon {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
 // Footer styles
 .footer {
   background: linear-gradient(

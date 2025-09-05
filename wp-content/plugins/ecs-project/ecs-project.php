@@ -77,6 +77,7 @@ class ECS_Project_Manager
         require_once $this->base_path . 'class-twig-initializer.php';
         $this->clients =  new  Project_Model_Client($this->template_parser);
         $this->bannerhome =  new  Project_Model_Banner($this->template_parser);
+        $this->document = new Project_Model_Document($this->template_parser);
         //$this->package = new Project_Model_Package($this->template_parser);
 
 

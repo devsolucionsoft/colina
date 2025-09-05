@@ -185,6 +185,115 @@ document.addEventListener("DOMContentLoaded", () => {
     initCompaniesSwiper();
   }
 
+  // Initialize Documents Swiper
+  let documentsSwiper = null;
+  const documentsSwiperContainer = document.querySelector(".documents-swiper");
+
+  if (documentsSwiperContainer) {
+    const initDocumentsSwiper = () => {
+      const slidesCount = document.querySelectorAll(
+        ".documents-swiper .swiper-slide"
+      ).length;
+
+      if (slidesCount > 1) {
+        if (documentsSwiper) {
+          documentsSwiper.destroy(true, true);
+        }
+
+        documentsSwiper = new Swiper(".documents-swiper", {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          loop: false, // Desactivar loop para mejor control
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+          navigation: {
+            nextEl: ".documents-next",
+            prevEl: ".documents-prev",
+          },
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 0,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 0,
+            },
+            1400: {
+              slidesPerView: 3, // Siempre máximo 3
+              spaceBetween: 0,
+            },
+          },
+          on: {
+            init: function () {
+              const nextBtn = document.querySelector(".documents-next");
+              const prevBtn = document.querySelector(".documents-prev");
+
+              // Solo ocultar botones si hay 3 o menos slides
+              if (slidesCount <= 3) {
+                if (nextBtn) nextBtn.style.display = "none";
+                if (prevBtn) prevBtn.style.display = "none";
+              } else {
+                if (nextBtn) nextBtn.style.display = "flex";
+                if (prevBtn) prevBtn.style.display = "flex";
+              }
+
+              this.updateVisibleCards();
+            },
+            slideChange: function () {
+              this.updateVisibleCards();
+            },
+            updateVisibleCards: function () {
+              // Obtener los slides actualmente visibles
+              const currentSlidesPerView = this.params.slidesPerView;
+
+              this.slides.forEach((slide) => {
+                const card = slide.querySelector(".document-card");
+                if (card) {
+                  card.classList.remove("first-visible", "last-visible");
+                }
+              });
+
+              // Aplicar clases a los slides visibles
+              for (
+                let i = 0;
+                i < currentSlidesPerView &&
+                i + this.activeIndex < this.slides.length;
+                i++
+              ) {
+                const slide = this.slides[this.activeIndex + i];
+                const card = slide.querySelector(".document-card");
+
+                if (card) {
+                  if (i === 0) {
+                    card.classList.add("first-visible");
+                  }
+                  if (
+                    i === currentSlidesPerView - 1 ||
+                    this.activeIndex + i === this.slides.length - 1
+                  ) {
+                    card.classList.add("last-visible");
+                  }
+                }
+              }
+            },
+          },
+        });
+      } else if (slidesCount === 1) {
+        const nextBtn = document.querySelector(".documents-next");
+        const prevBtn = document.querySelector(".documents-prev");
+
+        if (nextBtn) nextBtn.style.display = "none";
+        if (prevBtn) prevBtn.style.display = "none";
+      }
+    };
+
+    initDocumentsSwiper();
+  }
+
   window.addEventListener("resize", () => {
     if (swiper) {
       swiper.update();
@@ -194,6 +303,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (companiesSwiper) {
       companiesSwiper.update();
+    }
+    if (documentsSwiper) {
+      documentsSwiper.update();
     }
     if (heroBannerSwiper) {
       heroBannerSwiper.update();

@@ -356,6 +356,278 @@ a {
   object-position: center;
 }
 
+.documents-section {
+  padding: 100px 5%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+@media (max-width: 768px) {
+  .documents-section {
+    padding: 80px 5%;
+    gap: 88px;
+  }
+}
+.documents-section .section-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .documents-section .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.documents-section .section-header .btn-more-info {
+  background-color: black !important;
+}
+@media (max-width: 768px) {
+  .documents-section .section-header .btn-more-info {
+    order: 1;
+  }
+}
+.documents-section .section-header .section-title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 55%;
+}
+@media (max-width: 768px) {
+  .documents-section .section-header .section-title-container {
+    width: 100%;
+  }
+}
+.documents-section .section-header .section-title-container .section-title {
+  font-weight: 700;
+  font-style: Italic;
+  font-size: 20px;
+  line-height: 21.33px;
+  letter-spacing: 0%;
+  text-align: right;
+  text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .documents-section .section-header .section-title-container .section-title {
+    font-weight: 700;
+    font-style: Italic;
+    font-size: 18px;
+    line-height: 21.33px;
+    letter-spacing: 0%;
+    text-align: right;
+    text-transform: uppercase;
+  }
+}
+.documents-section .section-header .section-title-container .section-subtitle {
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 40px;
+  line-height: 44px;
+  letter-spacing: -0.4px;
+  text-align: right;
+}
+@media (max-width: 768px) {
+  .documents-section .section-header .section-title-container .section-subtitle {
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: -0.4px;
+    text-align: right;
+  }
+}
+.documents-section .section-header .section-title-container .section-description {
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -1%;
+  text-align: right;
+  margin-top: 20px;
+}
+.documents-section .documents-swiper-container {
+  position: relative;
+  overflow: hidden;
+}
+.documents-section .documents-swiper-container .documents-swiper {
+  box-sizing: border-box;
+  overflow: hidden;
+  width: calc(100% - 100px);
+}
+.documents-section .documents-swiper-container .documents-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card {
+  background: white;
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 32px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 111px;
+  width: 100%;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card:hover {
+  background: rgba(47, 91, 152, 0.0392156863);
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  background: #e61326;
+  border-radius: 4px;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-icon svg {
+  width: 31px;
+  height: 31px;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-content {
+  display: flex;
+  flex-direction: column;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-content .document-title {
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0%;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-content .download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  background: transparent;
+  color: #a7a9ac;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-content .download-link:hover {
+  background: #f8f9fa;
+  border-color: #999;
+  border-bottom: 1px solid #999;
+  color: #333;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-content .download-link .download-icon {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3s ease;
+}
+.documents-section .documents-swiper-container .documents-swiper .document-card .document-content .download-link:hover .download-icon {
+  transform: translateY(1px);
+}
+.documents-section .documents-swiper-container .swiper-button-next,
+.documents-section .documents-swiper-container .swiper-button-prev {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #da1c23;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+.documents-section .documents-swiper-container .swiper-button-next:after,
+.documents-section .documents-swiper-container .swiper-button-prev:after {
+  font-size: 14px;
+  font-weight: 700;
+}
+.documents-section .documents-swiper-container .swiper-button-next:hover,
+.documents-section .documents-swiper-container .swiper-button-prev:hover {
+  background: #da1c23;
+  color: white;
+  border-color: #da1c23;
+  box-shadow: 0 4px 12px rgba(215, 31, 38, 0.3);
+}
+.documents-section .documents-swiper-container .swiper-button-next {
+  right: 0;
+}
+.documents-section .documents-swiper-container .swiper-button-prev {
+  left: 0;
+}
+.documents-section .single-document {
+  display: flex;
+  justify-content: center;
+}
+.documents-section .single-document .document-card {
+  background: white;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.documents-section .single-document .document-card .document-icon {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: #da1c23;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(215, 31, 38, 0.3);
+}
+.documents-section .single-document .document-card .document-icon svg {
+  width: 32px;
+  height: 32px;
+}
+.documents-section .single-document .document-card .document-content {
+  width: 100%;
+}
+.documents-section .single-document .document-card .document-content .document-title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #333;
+  margin-bottom: 24px;
+}
+.documents-section .single-document .document-card .document-content .download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: #da1c23;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.documents-section .single-document .document-card .document-content .download-link:hover {
+  background: rgb(172.8048780488, 22.1951219512, 27.743902439);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(215, 31, 38, 0.4);
+}
+.documents-section .single-document .document-card .document-content .download-link .download-icon {
+  width: 16px;
+  height: 16px;
+}
+
 .footer {
   background: linear-gradient(89.55deg, #444546 -8.59%, #a7a9ac 18.42%, #ffffff 45.92%, #a7a9ac 65.38%, #444546 108.2%);
   color: black;

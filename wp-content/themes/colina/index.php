@@ -29,6 +29,10 @@
             <?php get_template_part('template-parts/principles'); ?>
         </section>
 
+        <section class="documents">
+            <?php get_template_part('template-parts/documents-section'); ?>
+        </section>
+
         <section class="payments">
             <div class="information">
                 <div class="text">

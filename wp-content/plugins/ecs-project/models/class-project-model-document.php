@@ -1,0 +1,297 @@
+<?php
+
+class Project_Model_Document
+{
+
+    private $post_type_name;
+    private $post_type_singular;
+    private $post_type_plural;
+    private $template_parser;
+    private $menu_icon;
+
+    function __construct($template_parser)
+    {
+        $this->template_parser = $template_parser;
+        $this->post_type_name = 'ss-document';
+        $this->post_type_singular = __('Documento', 'enigmind');
+        $this->post_type_plural = __('Documentos', 'enigmind');
+
+        $this->menu_icon = 'dashicons-media-document';
+
+        add_action('init', array($this, 'create_post_type'));
+        add_action('cmb2_admin_init', array($this, 'add_meta_boxes'));
+
+        add_action('save_post', array($this, 'validate_document_identifier'), 10, 2);
+
+        add_action('wp_enqueue_scripts', array($this, 'load_frontend_scripts'));
+        add_action('wp_enqueue_scripts', array($this, 'load_frontend_styles'));
+
+        add_action('admin_print_styles-post.php', array($this, 'load_admin_styles'), 1000);
+        add_action('admin_print_styles-post-new.php', array($this, 'load_admin_styles'), 1000);
+
+        add_action('admin_print_scripts-post.php', array($this, 'load_admin_scripts'), 1000);
+        add_action('admin_print_scripts-post-new.php', array($this, 'load_admin_scripts'), 1000);
+    }
+
+    function create_post_type()
+    {
+
+        $labels = array(
+            'name' => sprintf(_x('%s', 'post type general name', 'enigmind'), $this->post_type_plural),
+            'singular_name' => sprintf(_x('%s', 'post type singular name', 'enigmind'), $this->post_type_singular),
+            'add_new' => _x('Agregar Nuevo', $this->post_type_singular, ''),
+            'add_new_item' => sprintf(__('Nuevo %s', 'enigmind'), $this->post_type_singular),
+            'edit_item' => sprintf(__('Editar %s', 'enigmind'), $this->post_type_singular),
+            'new_item' => sprintf(__('Agregar %s', 'enigmind'), $this->post_type_singular),
+            'all_items' => sprintf(__('%s', 'enigmind'), $this->post_type_plural),
+            'view_item' => sprintf(__('Ver %s', 'enigmind'), $this->post_type_singular),
+            'search_items' => sprintf(__('Buscar', 'enigmind'), $this->post_type_plural),
+            'not_found' => sprintf(__('No %s Encontrados', 'enigmind'), $this->post_type_plural),
+            'not_found_in_trash' => sprintf(__('No %s Encontrados en la Papelera', 'enigmind'), $this->post_type_plural),
+            'parent_item_colon' => '',
+            'menu_name' => $this->post_type_plural,
+        );
+
+        $args = array(
+            'labels' => $labels,
+            'description'         => __('Documentos PDF del proyecto', 'enigmind'),
+            'supports'            => array('title', 'thumbnail', 'excerpt', 'editor'),
+            'hierarchical'        => false,
+            'public'              => true,
+            'show_ui'             => true,
+            'show_in_menu'        => true,
+            'show_in_nav_menus'   => true,
+            'show_in_admin_bar'   => true,
+            'menu_position'       => 4,
+            'menu_icon'           =>  $this->menu_icon,
+            'can_export'          => true,
+            'has_archive'         => false,
+            'exclude_from_search' => false,
+            'publicly_queryable'  => true,
+            'capability_type'     => 'post',
+        );
+
+        register_post_type($this->post_type_name, $args);
+    }
+
+    function metabox_general()
+    {
+        $prefix = 'document_';
+
+        $cmb = new_cmb2_box(array(
+            'id'           => $prefix . 'general',
+            'title'        => __('Información del Documento', 'enigmind'),
+            'object_types' => array($this->post_type_name,),
+            'context'      => 'normal',
+            'priority'     => 'high',
+            'show_names'   => true,
+        ));
+
+        $cmb->add_field(array(
+            'name' => 'Identificador del Documento',
+            'desc' => 'ID único del documento (ej: DOC-001, CERT-2024-001)',
+            'id'   => $prefix . 'identifier',
+            'type' => 'text',
+            'attributes' => array(
+                'required' => 'required',
+                'placeholder' => 'DOC-001',
+            ),
+        ));
+
+        $cmb->add_field(array(
+            'name'         => 'Archivo PDF',
+            'desc'         => 'Sube un archivo PDF relacionado con este documento',
+            'id'           => $prefix . 'pdf_file',
+            'type'         => 'file',
+            'options'      => array(
+                'url' => false,
+            ),
+            'text'         => array(
+                'add_upload_file_text' => 'Subir PDF'
+            ),
+            'query_args'   => array(
+                'post_mime_type' => 'application/pdf'
+            ),
+        ));
+
+        $cmb->add_field(array(
+            'name' => 'Descripción del Documento',
+            'desc' => 'Breve descripción del contenido del documento',
+            'id'   => $prefix . 'description',
+            'type' => 'textarea_small',
+        ));
+
+        $cmb->add_field(array(
+            'name' => 'Fecha del Documento',
+            'desc' => 'Fecha de creación o vigencia del documento',
+            'id'   => $prefix . 'date',
+            'type' => 'text_date',
+        ));
+    }
+
+    function add_meta_boxes()
+    {
+        $this->metabox_general();
+    }
+
+    function load_admin_styles()
+    {
+
+        global $post_type;
+
+        if ($this->post_type_name != $post_type) {
+            return;
+        }
+
+        //wp_enqueue_style('bootstrap-css', plugins_url('../js/pqrs/bootstrap.min.css', __FILE__));
+    }
+
+    function load_frontend_styles()
+    {
+
+        global $post_type;
+
+        if ($this->post_type_name != $post_type) {
+            return;
+        }
+
+        // wp_enqueue_style('dugalu-logos-css', plugins_url('../css/style.css', __FILE__));
+
+    }
+
+    function load_admin_scripts()
+    {
+
+        global $post_type;
+
+        if ($this->post_type_name != $post_type) {
+            return;
+        }
+
+        //wp_enqueue_script('pqrs-backend-js', plugins_url('../js/pqrs/pqrs-backend.js', __FILE__), array('jquery'), '1.0', true);
+        // wp_enqueue_script('enig-comp-admin-js', plugins_url('../js/admin.js', __FILE__), array('jquery'), '1.0', true);
+
+    }
+
+    function load_frontend_scripts()
+    {
+
+        global $post_type;
+
+        if ($this->post_type_name != $post_type) {
+            return;
+        }
+
+        // wp_enqueue_script('indupalma-pqrs-parsley-js', plugins_url('../js/pqrs/parsley.js', __FILE__), array('jquery'), '1.0', true);
+        // wp_enqueue_script('indupalma-pqrs-frontend-js', plugins_url('../js/pqrs/pqrs-frontend.js', __FILE__), array('jquery','indupalma-pqrs-parsley-js'), '1.0', true);
+
+    }
+
+    /**
+     * Valida que el identificador del documento sea único
+     */
+    function validate_document_identifier($post_id, $post)
+    {
+        // Verificar si es nuestro post type
+        if ($post->post_type !== $this->post_type_name) {
+            return;
+        }
+
+        // Evitar validación en revisiones y autoguardado
+        if (wp_is_post_revision($post_id) || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)) {
+            return;
+        }
+
+        // Obtener el identificador
+        $identifier = get_post_meta($post_id, 'document_identifier', true);
+
+        if (empty($identifier)) {
+            return;
+        }
+
+        // Buscar otros documentos con el mismo identificador
+        $existing_posts = get_posts(array(
+            'post_type' => $this->post_type_name,
+            'post_status' => array('publish', 'draft', 'private'),
+            'posts_per_page' => -1,
+            'meta_query' => array(
+                array(
+                    'key' => 'document_identifier',
+                    'value' => $identifier,
+                    'compare' => '='
+                )
+            ),
+            'exclude' => array($post_id)
+        ));
+
+        // Si existe otro documento con el mismo ID, agregar error
+        if (!empty($existing_posts)) {
+            add_action('admin_notices', function () use ($identifier) {
+                echo '<div class="notice notice-error"><p><strong>Error:</strong> Ya existe un documento con el identificador "' . esc_html($identifier) . '". Por favor, use un identificador único.</p></div>';
+            });
+        }
+    }
+
+    /**
+     * Obtiene un documento por su identificador
+     */
+    function get_document_by_identifier($identifier)
+    {
+        $posts = get_posts(array(
+            'post_type' => $this->post_type_name,
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+            'meta_query' => array(
+                array(
+                    'key' => 'document_identifier',
+                    'value' => $identifier,
+                    'compare' => '='
+                )
+            )
+        ));
+
+        return !empty($posts) ? $posts[0] : null;
+    }
+
+    /**
+     * Obtiene la URL del PDF de un documento
+     */
+    function get_document_pdf_url($post_id)
+    {
+        $pdf_file_id = get_post_meta($post_id, 'document_pdf_file_id', true);
+        if ($pdf_file_id) {
+            return wp_get_attachment_url($pdf_file_id);
+        }
+        return false;
+    }
+
+    /**
+     * Obtiene todos los documentos de una categoría específica
+     */
+    function get_documents_by_category($category)
+    {
+        return get_posts(array(
+            'post_type' => $this->post_type_name,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'meta_query' => array(
+                array(
+                    'key' => 'document_category',
+                    'value' => $category,
+                    'compare' => '='
+                )
+            ),
+            'orderby' => 'date',
+            'order' => 'DESC'
+        ));
+    }
+
+    /**
+     * Verifica si un archivo es PDF válido
+     */
+    function is_valid_pdf($file_id)
+    {
+        $file_mime = get_post_mime_type($file_id);
+        return $file_mime === 'application/pdf';
+    }
+}
