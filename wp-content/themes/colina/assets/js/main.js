@@ -1,4 +1,80 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
+  const cards = document.querySelectorAll(".normatividad-document-card");
+  const previewFrame = document.getElementById("document-preview-frame");
+  const previewMsg = document.getElementById("document-preview-message");
+  const popupOverlay = document.getElementById("document-popup-overlay");
+  const popupFrame = document.getElementById("document-popup-frame");
+  const popupClose = document.getElementById("document-popup-close");
+  const popupTitle = document.getElementById("document-popup-title");
+  const popupDownload = document.getElementById("document-popup-download");
+
+  function openPreview(pdfUrl, title) {
+    if (isMobile()) {
+      popupFrame.src = pdfUrl;
+      popupTitle.textContent = title;
+      popupDownload.href = pdfUrl;
+      popupOverlay.classList.add("active");
+      document.body.classList.add("no-scroll");
+    } else {
+      if (previewFrame) {
+        previewFrame.src = pdfUrl;
+        previewFrame.style.display = "block";
+      }
+      if (previewMsg) previewMsg.style.display = "none";
+    }
+  }
+
+  function closePopup() {
+    popupOverlay.classList.remove("active");
+    popupFrame.src = "";
+    document.body.classList.remove("no-scroll");
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener("click", function (e) {
+      if (e.target.closest(".download-link")) return;
+      const pdfUrl = card.getAttribute("data-pdf-url");
+      const title = card.getAttribute("data-title");
+      openPreview(pdfUrl, title);
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        const pdfUrl = card.getAttribute("data-pdf-url");
+        const title = card.getAttribute("data-title");
+        openPreview(pdfUrl, title);
+      }
+    });
+  });
+
+  if (popupClose) {
+    popupClose.addEventListener("click", closePopup);
+  }
+  if (popupOverlay) {
+    popupOverlay.addEventListener("click", function (e) {
+      if (e.target === popupOverlay) closePopup();
+    });
+  }
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && popupOverlay.classList.contains("active")) {
+      closePopup();
+    }
+  });
+
+  window.addEventListener("resize", function () {
+    if (!isMobile() && popupOverlay.classList.contains("active")) {
+      closePopup();
+    }
+    if (isMobile() && previewFrame) {
+      previewFrame.src = "";
+      previewFrame.style.display = "none";
+      if (previewMsg) previewMsg.style.display = "block";
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".faq .item-title").forEach(function (title) {
     title.addEventListener("click", function (e) {
       const item = title.closest(".item");
