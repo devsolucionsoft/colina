@@ -41,6 +41,15 @@
                     <p>Bogotá, Colina Campestre</p>
                 </div>
             </div>
+
+            <?php if (function_exists('is_page') && is_page('contacto')): ?>
+                <a href="https://waze.com/ul?ll=4.710989,-74.072092&navigate=yes" target="_blank" rel="noopener" class="btn btn-waze" data-aos-delay="600">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/waze.png" alt="Waze">
+                    <span>
+                        Abrir en Waze
+                    </span>
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 

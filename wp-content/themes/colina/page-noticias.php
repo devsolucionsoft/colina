@@ -16,7 +16,7 @@
     ?>
 
     <section class="banner" style="background-image: url('<?php echo esc_url($banner_img); ?>');">
-        <div class="overlay"></div>
+        <div class="overlay light"></div>
         <div class="content">
             <div class="route">
                 <div class="parent">
