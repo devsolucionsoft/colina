@@ -1,3 +1,42 @@
+// Carga dinámica de noticias en page-noticias.php
+document.addEventListener("DOMContentLoaded", function () {
+  const loadMoreBtn = document.getElementById("news-load-more");
+  const newsGrid = document.getElementById("news-grid");
+  if (loadMoreBtn && newsGrid) {
+    loadMoreBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      let paged = parseInt(loadMoreBtn.getAttribute("data-paged"), 10) + 1;
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = "Cargando...";
+      fetch(ajaxurl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "action=load_more_news&paged=" + paged,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.data.html) {
+            newsGrid.insertAdjacentHTML("beforeend", data.data.html);
+            loadMoreBtn.setAttribute("data-paged", paged);
+            if (!data.data.has_more) {
+              loadMoreBtn.style.display = "none";
+            } else {
+              loadMoreBtn.disabled = false;
+              loadMoreBtn.textContent = "Cargar más";
+            }
+            if (typeof setupNewsCardOverlay === "function")
+              setupNewsCardOverlay();
+          } else {
+            loadMoreBtn.style.display = "none";
+          }
+        })
+        .catch(() => {
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.textContent = "Cargar más";
+        });
+    });
+  }
+});
 function setupNewsCardOverlay() {
   const isTouch = window.matchMedia(
     "(hover: none) and (pointer: coarse)"

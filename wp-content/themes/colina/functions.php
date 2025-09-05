@@ -108,3 +108,45 @@ function get_documents()
 
     return $documents_data;
 }
+
+
+add_action('wp_ajax_load_more_news', 'colina_load_more_news');
+add_action('wp_ajax_nopriv_load_more_news', 'colina_load_more_news');
+function colina_load_more_news()
+{
+    $paged = isset($_POST['paged']) ? intval($_POST['paged']) : 1;
+    $news_query = new WP_Query([
+        'post_type'      => 'post',
+        'posts_per_page' => 6,
+        'post_status'    => 'publish',
+        'paged'          => $paged,
+    ]);
+    $default_img = get_template_directory_uri() . '/assets/images/news-default.jpg';
+    ob_start();
+    if ($news_query->have_posts()) {
+        while ($news_query->have_posts()) {
+            $news_query->the_post();
+            echo '<div class="news-card">';
+            echo '  <div class="news-image">';
+            if (has_post_thumbnail()) {
+                the_post_thumbnail('large');
+            } else {
+                echo '<img src="' . esc_url($default_img) . '" alt="Noticia">';
+            }
+            echo '    <div class="news-overlay">';
+            echo '      <a href="' . get_the_permalink() . '" class="btn news-btn">Ver más</a>';
+            echo '    </div>';
+            echo '  </div>';
+            echo '  <div class="news-content">';
+            echo '    <span class="news-date">' . get_the_date('d/m/Y') . '</span>';
+            echo '    <h4 class="news-title">' . get_the_title() . '</h4>';
+            echo '  </div>';
+            echo '</div>';
+        }
+        wp_reset_postdata();
+    }
+    $html = ob_get_clean();
+    $has_more = ($news_query->max_num_pages > $paged);
+    wp_send_json_success(['html' => $html, 'has_more' => $has_more, 'next_paged' => $paged + 1]);
+    wp_die();
+}
