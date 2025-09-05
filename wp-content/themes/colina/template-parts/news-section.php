@@ -1,8 +1,13 @@
 <?php
+$exclude_id = null;
+if (is_single()) {
+    $exclude_id = get_the_ID();
+}
 $news_query = new WP_Query([
     'post_type'      => 'post',
     'posts_per_page' => 8,
     'post_status'    => 'publish',
+    'post__not_in'   => $exclude_id ? array($exclude_id) : array(),
 ]);
 $default_img = get_template_directory_uri() . '/assets/images/news-default.jpg';
 ?>
