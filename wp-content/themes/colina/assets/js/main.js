@@ -1,4 +1,21 @@
-// Carga dinámica de noticias en page-noticias.php
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".faq .item-title").forEach(function (title) {
+    title.addEventListener("click", function (e) {
+      const item = title.closest(".item");
+      if (!item) return;
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq .item.open").forEach(function (openItem) {
+        if (openItem !== item) openItem.classList.remove("open");
+      });
+      if (!isOpen) {
+        item.classList.add("open");
+      } else {
+        item.classList.remove("open");
+      }
+    });
+  });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const loadMoreBtn = document.getElementById("news-load-more");
   const newsGrid = document.getElementById("news-grid");
@@ -37,6 +54,71 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+// Animación de conteo para números en .stats
+// Animación de conteo mejorada con easeOutExpo y rebote visual
+function animateCountUp(element, target, duration = 2000) {
+  let startTimestamp = null;
+  const isInt = /^\+?\d+$/.test(target.replace(/\D/g, ""));
+  const cleanTarget = parseFloat(target.replace(/[^\d\.]/g, ""));
+  const suffix = target.replace(/^[\d\+\.]+/, "");
+  const prefix = target.match(/^\+/) ? "+" : "";
+  // easeOutExpo para suavidad
+  function easeOutExpo(x) {
+    return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+  }
+  // Rebote visual al final
+  function bounce(t) {
+    if (t < 1) return t;
+    let extra =
+      Math.sin((t - 1) * Math.PI * 4) * 0.08 * (1 - Math.min((t - 1) * 2, 1));
+    return 1 + extra;
+  }
+  function step(timestamp) {
+    if (!startTimestamp) startTimestamp = timestamp;
+    let progress = Math.min((timestamp - startTimestamp) / duration, 1.08); // 1.08 para permitir rebote
+    let eased = easeOutExpo(Math.min(progress, 1));
+    let bounced = bounce(progress);
+    let value = isInt
+      ? Math.floor(eased * cleanTarget * bounced)
+      : (eased * cleanTarget * bounced).toFixed(0);
+    if (progress >= 1) value = cleanTarget;
+    element.textContent = `${prefix}${value}${suffix}`;
+    // Sin efecto de color animado
+    if (progress < 1.08) {
+      window.requestAnimationFrame(step);
+    } else {
+      element.textContent = `${prefix}${cleanTarget}${suffix}`;
+      element.style.color = "";
+    }
+  }
+  window.requestAnimationFrame(step);
+}
+
+function setupStatsCountUp() {
+  const statNumbers = document.querySelectorAll(".stats .stat-card .number");
+  if (!statNumbers.length) return;
+  const observer = new window.IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          if (!el.dataset.animated) {
+            animateCountUp(el, el.dataset.target || el.textContent.trim());
+            el.dataset.animated = "1";
+          }
+          obs.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+  statNumbers.forEach((el) => {
+    el.dataset.target = el.textContent.trim();
+    observer.observe(el);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", setupStatsCountUp);
 function setupNewsCardOverlay() {
   const isTouch = window.matchMedia(
     "(hover: none) and (pointer: coarse)"
