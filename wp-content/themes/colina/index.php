@@ -15,6 +15,7 @@
 
         <?php get_template_part('template-parts/companies-section'); ?>
 
+
         <section class="about-us">
             <div class="up">
                 <div class="message">
@@ -49,6 +50,8 @@
                 </div>
             </figure>
         </section>
+
+        <?php get_template_part('template-parts/news-section'); ?>
 
         <?php get_template_part('template-parts/contact'); ?>
 

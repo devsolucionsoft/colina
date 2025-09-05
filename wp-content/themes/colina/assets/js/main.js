@@ -1,3 +1,42 @@
+function setupNewsCardOverlay() {
+  const isTouch = window.matchMedia(
+    "(hover: none) and (pointer: coarse)"
+  ).matches;
+  const newsCards = document.querySelectorAll(".news-card");
+  if (!newsCards.length) return;
+
+  newsCards.forEach((card) => {
+    if (!isTouch) return;
+    card.addEventListener("click", function (e) {
+      if (card.classList.contains("show-overlay")) {
+        const btn = e.target.closest(".news-overlay-btn");
+        if (btn) return;
+        card.classList.remove("show-overlay");
+        e.preventDefault();
+        return;
+      }
+      document
+        .querySelectorAll(".news-card.show-overlay")
+        .forEach((c) => c.classList.remove("show-overlay"));
+      card.classList.add("show-overlay");
+      e.preventDefault();
+    });
+  });
+  document.addEventListener("touchstart", function (e) {
+    const open = document.querySelector(".news-card.show-overlay");
+    if (open && !e.target.closest(".news-card")) {
+      open.classList.remove("show-overlay");
+    }
+  });
+  window.addEventListener("scroll", function () {
+    document
+      .querySelectorAll(".news-card.show-overlay")
+      .forEach((c) => c.classList.remove("show-overlay"));
+  });
+}
+
+setupNewsCardOverlay();
+
 document.addEventListener("DOMContentLoaded", () => {
   const hamburgerMenu = document.querySelector(".hamburger-menu");
   const sideMenu = document.getElementById("side-menu");
@@ -46,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
               const currentSlide = this.slides[this.previousIndex];
               const nextSlide = this.slides[this.activeIndex];
 
-              // Aplicar animación de salida al slide actual
               if (currentSlide) {
                 currentSlide.classList.add("slide-exit");
                 currentSlide.classList.remove(
@@ -55,13 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
               }
 
-              // Preparar el slide entrante
               if (nextSlide) {
                 nextSlide.classList.add("slide-enter");
                 nextSlide.classList.remove("slide-exit", "slide-enter-active");
               }
 
-              // Limpiar otros slides
               this.slides.forEach((slide, index) => {
                 if (
                   index !== this.activeIndex &&
@@ -78,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
             slideChange: function () {
               const activeSlide = this.slides[this.activeIndex];
 
-              // Después de 400ms, comenzar la animación de entrada
               setTimeout(() => {
                 if (activeSlide) {
                   activeSlide.classList.add("slide-enter-active");
@@ -87,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
               }, 400);
             },
             slideChangeTransitionEnd: function () {
-              // Limpiar todas las clases después de la transición completa
               setTimeout(() => {
                 this.slides.forEach((slide, index) => {
                   if (index !== this.activeIndex) {
@@ -113,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
     once: true,
   });
 
-  // Initialize Companies Swiper
   let companiesSwiper = null;
   const companiesSwiperContainer = document.querySelector(".companies-swiper");
 
@@ -185,9 +218,35 @@ document.addEventListener("DOMContentLoaded", () => {
     initCompaniesSwiper();
   }
 
-  // Initialize Documents Swiper
   let documentsSwiper = null;
   const documentsSwiperContainer = document.querySelector(".documents-swiper");
+
+  function updateVisibleCards(swiper) {
+    const currentSlidesPerView = swiper.params.slidesPerView;
+    swiper.slides.forEach((slide) => {
+      const card = slide.querySelector(".document-card");
+      if (card) {
+        card.classList.remove("first-visible", "last-visible");
+      }
+    });
+    for (
+      let i = 0;
+      i < currentSlidesPerView && i + swiper.activeIndex < swiper.slides.length;
+      i++
+    ) {
+      const slide = swiper.slides[swiper.activeIndex + i];
+      const card = slide.querySelector(".document-card");
+      if (card) {
+        if (i === 0) card.classList.add("first-visible");
+        if (
+          i === currentSlidesPerView - 1 ||
+          swiper.activeIndex + i === swiper.slides.length - 1
+        ) {
+          card.classList.add("last-visible");
+        }
+      }
+    }
+  }
 
   if (documentsSwiperContainer) {
     const initDocumentsSwiper = () => {
@@ -223,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
               spaceBetween: 0,
             },
             1400: {
-              slidesPerView: 3, // Siempre máximo 3
+              slidesPerView: 3,
               spaceBetween: 0,
             },
           },
@@ -231,8 +290,6 @@ document.addEventListener("DOMContentLoaded", () => {
             init: function () {
               const nextBtn = document.querySelector(".documents-next");
               const prevBtn = document.querySelector(".documents-prev");
-
-              // Solo ocultar botones si hay 3 o menos slides
               if (slidesCount <= 3) {
                 if (nextBtn) nextBtn.style.display = "none";
                 if (prevBtn) prevBtn.style.display = "none";
@@ -240,45 +297,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (nextBtn) nextBtn.style.display = "flex";
                 if (prevBtn) prevBtn.style.display = "flex";
               }
-
-              this.updateVisibleCards();
+              updateVisibleCards(this);
             },
             slideChange: function () {
-              this.updateVisibleCards();
-            },
-            updateVisibleCards: function () {
-              // Obtener los slides actualmente visibles
-              const currentSlidesPerView = this.params.slidesPerView;
-
-              this.slides.forEach((slide) => {
-                const card = slide.querySelector(".document-card");
-                if (card) {
-                  card.classList.remove("first-visible", "last-visible");
-                }
-              });
-
-              // Aplicar clases a los slides visibles
-              for (
-                let i = 0;
-                i < currentSlidesPerView &&
-                i + this.activeIndex < this.slides.length;
-                i++
-              ) {
-                const slide = this.slides[this.activeIndex + i];
-                const card = slide.querySelector(".document-card");
-
-                if (card) {
-                  if (i === 0) {
-                    card.classList.add("first-visible");
-                  }
-                  if (
-                    i === currentSlidesPerView - 1 ||
-                    this.activeIndex + i === this.slides.length - 1
-                  ) {
-                    card.classList.add("last-visible");
-                  }
-                }
-              }
+              updateVisibleCards(this);
             },
           },
         });
@@ -294,10 +316,25 @@ document.addEventListener("DOMContentLoaded", () => {
     initDocumentsSwiper();
   }
 
+  const newsSwiperContainer = document.querySelector(".news-swiper");
+  if (newsSwiperContainer) {
+    new Swiper(".news-swiper", {
+      slidesPerView: 1,
+      spaceBetween: 24,
+      navigation: {
+        nextEl: ".news-next",
+        prevEl: ".news-prev",
+      },
+      breakpoints: {
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 32,
+        },
+      },
+    });
+  }
+
   window.addEventListener("resize", () => {
-    if (swiper) {
-      swiper.update();
-    }
     if (reviewsSwiper) {
       reviewsSwiper.update();
     }
@@ -375,7 +412,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Contact Form Functionality
   initContactForm();
 
   function initContactForm() {
@@ -387,14 +423,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const successMessage = document.getElementById("success-message");
     const errorMessage = document.getElementById("error-message");
 
-    // Form validation patterns
     const validationPatterns = {
       name: /^[a-zA-ZÀ-ÿ\s]{2,50}$/,
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       message: /^.{10,500}$/,
     };
 
-    // Error messages
     const errorMessages = {
       name: "El nombre debe tener entre 2 y 50 caracteres y solo contener letras",
       email: "Por favor, ingresa un email válido",
@@ -402,27 +436,22 @@ document.addEventListener("DOMContentLoaded", () => {
       message: "El mensaje debe tener entre 10 y 500 caracteres",
     };
 
-    // Initialize form enhancements
     initFormEnhancements();
     initFormValidation();
     initFormSubmission();
 
     function initFormEnhancements() {
-      // Enhanced input/textarea behavior
       const inputs = contactForm.querySelectorAll("input, textarea");
       inputs.forEach((input) => {
-        // Handle focus and blur for better UX
         input.addEventListener("focus", handleInputFocus);
         input.addEventListener("blur", handleInputBlur);
         input.addEventListener("input", handleInputChange);
 
-        // Check if input has value on load
         if (input.value.trim() !== "") {
           input.classList.add("has-value");
         }
       });
 
-      // Enhanced select behavior
       const select = contactForm.querySelector("select");
       if (select) {
         select.addEventListener("change", handleSelectChange);
@@ -448,21 +477,18 @@ document.addEventListener("DOMContentLoaded", () => {
         container.classList.remove("focused");
       }
 
-      // Validate field on blur
       validateField(event.target);
     }
 
     function handleInputChange(event) {
       const input = event.target;
 
-      // Update has-value class
       if (input.value.trim() !== "") {
         input.classList.add("has-value");
       } else {
         input.classList.remove("has-value");
       }
 
-      // Clear error if user is typing
       clearFieldError(input);
     }
 
@@ -485,7 +511,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function handleSelectChange(event) {
       const select = event.target;
 
-      // Update has-value class
       if (select.value !== "") {
         select.classList.add("has-value");
       } else {
@@ -496,7 +521,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function initFormValidation() {
-      // Real-time validation
       const fields = contactForm.querySelectorAll("input, select, textarea");
       fields.forEach((field) => {
         field.addEventListener("blur", () => validateField(field));
@@ -618,9 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function handleFormSubmit(event) {
       event.preventDefault();
 
-      // Validate form
       if (!validateForm()) {
-        // Scroll to first error
         const firstError = contactForm.querySelector(".error");
         if (firstError) {
           firstError.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -629,35 +651,28 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Show loading state
       setLoadingState(true);
 
       try {
-        // Prepare form data
         const formData = new FormData(contactForm);
         formData.append("action", "send_contact_email");
 
-        // Get nonce from WordPress if available
         if (typeof contactFormAjax !== "undefined" && contactFormAjax.nonce) {
           formData.append("nonce", contactFormAjax.nonce);
         }
 
-        // Determine AJAX URL
         let ajaxUrl;
         if (typeof contactFormAjax !== "undefined" && contactFormAjax.ajaxurl) {
           ajaxUrl = contactFormAjax.ajaxurl;
         } else if (window.contactFormAjax && window.contactFormAjax.ajaxurl) {
           ajaxUrl = window.contactFormAjax.ajaxurl;
         } else {
-          // Fallback: construir URL basada en la ubicación actual
           const currentLocation = window.location;
-          // Detectar si estamos en una subcarpeta
           const pathParts = currentLocation.pathname
             .split("/")
             .filter((part) => part);
           let basePath = "";
 
-          // Si el primer elemento del path es 'colina', incluirlo en la base
           if (pathParts[0] === "colina") {
             basePath = "/colina";
           }
@@ -665,7 +680,6 @@ document.addEventListener("DOMContentLoaded", () => {
           ajaxUrl = `${currentLocation.protocol}//${currentLocation.host}${basePath}/wp-admin/admin-ajax.php`;
         }
 
-        // Send AJAX request
         const response = await fetch(ajaxUrl, {
           method: "POST",
           body: formData,
@@ -681,15 +695,12 @@ document.addEventListener("DOMContentLoaded", () => {
           showSuccessMessage();
           resetForm();
         } else {
-          // Si el error es de token, intentar renovar el nonce
           if (data.data && data.data.includes("Token de seguridad")) {
             const newNonce = await renewNonce();
             if (newNonce) {
-              // Actualizar el nonce y reintentar
               if (typeof contactFormAjax !== "undefined") {
                 contactFormAjax.nonce = newNonce;
               }
-              // Reintentar el envío una vez
               setTimeout(() => handleFormSubmit(event), 1000);
               return;
             }
@@ -729,7 +740,6 @@ document.addEventListener("DOMContentLoaded", () => {
       successMessage.style.display = "flex";
       errorMessage.style.display = "none";
 
-      // Auto hide after 5 seconds
       setTimeout(() => {
         hideMessages();
       }, 5000);
@@ -745,7 +755,6 @@ document.addEventListener("DOMContentLoaded", () => {
       errorMessage.style.display = "flex";
       successMessage.style.display = "none";
 
-      // Auto hide after 5 seconds
       setTimeout(() => {
         hideMessages();
       }, 5000);
@@ -758,14 +767,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function resetForm() {
       contactForm.reset();
 
-      // Clear all enhancements
       const inputs = contactForm.querySelectorAll("input, textarea, select");
       inputs.forEach((input) => {
         input.classList.remove("has-value", "error");
         clearFieldError(input);
       });
 
-      // Clear containers
       const containers = contactForm.querySelectorAll(
         ".input-container, .textarea-container, .select-container"
       );
@@ -774,7 +781,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Click outside to hide messages
     document.addEventListener("click", function (event) {
       if (
         formMessages &&
@@ -785,7 +791,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Escape key to hide messages
     document.addEventListener("keydown", function (event) {
       if (
         event.key === "Escape" &&
@@ -796,7 +801,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Enhanced animations
     function addLoadingAnimations() {
       const formGroups = contactForm.querySelectorAll(".form-group");
       formGroups.forEach((group, index) => {
@@ -805,10 +809,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Initialize loading animations
     addLoadingAnimations();
 
-    // Test AJAX connection (temporal)
     if (typeof contactFormAjax !== "undefined") {
       console.log("Testing AJAX connection...");
       testAjaxConnection();
