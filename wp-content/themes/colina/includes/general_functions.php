@@ -38,7 +38,12 @@ function add_meta_tags()
     <meta property="og:type" content="<?php echo is_single() ? 'article' : 'website'; ?>">
     <meta property="og:url" content="<?php echo esc_url(is_home() ? home_url() : get_permalink()); ?>">
     <meta property="og:image" content="<?php echo esc_url($page_image); ?>">
+    <meta property="og:image:secure_url" content="<?php echo esc_url($page_image); ?>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="<?php echo esc_attr(colina_get_og_title()); ?>">
     <meta property="og:site_name" content="Colina">
+    <meta property="og:locale" content="es_ES">
 
     <?php if (is_single() && get_post_type() == 'post'): ?>
         <!-- Article Meta Tags -->
@@ -154,11 +159,18 @@ function colina_get_page_description()
 
 function colina_get_featured_image()
 {
+    // Si el post tiene imagen destacada, usarla
     if (has_post_thumbnail()) {
         return get_the_post_thumbnail_url(null, 'og-image');
     }
 
-    return get_template_directory_uri() . '/assets/images/og-default-2.jpg';
+    // URL de la imagen por defecto
+    $default_image = get_template_directory_uri() . '/assets/images/og-default-2.jpg';
+    
+    // Para debugging - puedes comentar esto en producción
+    // error_log('OG Image URL: ' . $default_image);
+    
+    return $default_image;
 }
 
 add_action('wp_head', 'pluginname_ajaxurl');
