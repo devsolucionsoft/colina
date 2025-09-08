@@ -25,7 +25,6 @@ function add_meta_tags()
 {
     $page_title = colina_get_page_title();
     $page_description = colina_get_page_description();
-    $page_image = colina_get_featured_image();
 ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,8 +36,8 @@ function add_meta_tags()
     <meta property="og:description" content="<?php echo esc_attr($page_description); ?>">
     <meta property="og:type" content="<?php echo is_single() ? 'article' : 'website'; ?>">
     <meta property="og:url" content="<?php echo esc_url(is_home() ? home_url() : get_permalink()); ?>">
-    <meta property="og:image" content="<?php echo esc_url($page_image); ?>">
-    <meta property="og:image:secure_url" content="<?php echo esc_url($page_image); ?>">
+    <meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/assets/images/og-default-2.jpg">
+    <meta property="og:image:secure_url" content="<?php echo get_template_directory_uri(); ?>/assets/images/og-default-2.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="<?php echo esc_attr(colina_get_og_title()); ?>">
@@ -57,7 +56,7 @@ function add_meta_tags()
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo esc_attr(colina_get_og_title()); ?>">
     <meta name="twitter:description" content="<?php echo esc_attr($page_description); ?>">
-    <meta name="twitter:image" content="<?php echo esc_url($page_image); ?>">
+    <meta name="twitter:image" content="<?php echo get_template_directory_uri(); ?>/assets/images/og-default-2.jpg">
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="<?php echo esc_attr($page_description); ?>">
@@ -155,16 +154,6 @@ function colina_get_page_description()
     }
 
     return 'Colina - Centro empresarial moderno ubicado en una zona estratégica';
-}
-
-function colina_get_featured_image()
-{
-    if (has_post_thumbnail()) {
-        return get_the_post_thumbnail_url(null, 'og-image');
-    }
-
-    $default_image = get_template_directory_uri() . '/assets/images/og-default-2.jpg';
-    return $default_image;
 }
 
 add_action('wp_head', 'pluginname_ajaxurl');
