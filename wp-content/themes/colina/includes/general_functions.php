@@ -159,17 +159,11 @@ function colina_get_page_description()
 
 function colina_get_featured_image()
 {
-    // Si el post tiene imagen destacada, usarla
     if (has_post_thumbnail()) {
         return get_the_post_thumbnail_url(null, 'og-image');
     }
 
-    // URL de la imagen por defecto
     $default_image = get_template_directory_uri() . '/assets/images/og-default-2.jpg';
-    
-    // Para debugging - puedes comentar esto en producción
-    // error_log('OG Image URL: ' . $default_image);
-    
     return $default_image;
 }
 
