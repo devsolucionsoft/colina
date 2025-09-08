@@ -46,12 +46,24 @@
         <section class="normatividad-documents-section">
             <div class="normatividad-documents-wrapper">
                 <!-- (Desktop) -->
+                <div class="decorative-rectangles items-preview-1">
+                    <div class="rectangle rect-1"></div>
+                    <div class="rectangle rect-2"></div>
+                    <div class="rectangle rect-3"></div>
+                </div>
                 <div class="document-preview-container">
+
                     <div class="document-preview-message" id="document-preview-message">
                         Selecciona un documento para previsualizarlo
                     </div>
                     <iframe id="document-preview-frame" class="document-preview-frame" src="" style="display:none;" frameborder="0"></iframe>
                 </div>
+                <div class="decorative-rectangles items-preview-2">
+                    <div class="rectangle rect-1"></div>
+                    <div class="rectangle rect-2"></div>
+                    <div class="rectangle rect-3"></div>
+                </div>
+
                 <!-- Listado de documentos -->
                 <div class="normatividad-documents-list-container">
                     <div class="section-header">

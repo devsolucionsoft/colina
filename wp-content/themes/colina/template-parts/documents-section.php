@@ -14,6 +14,12 @@ $documents_count = count($documents);
                     Encuentra aquí los documentos clave para la operación del edificio y el uso de los espacios: reglamento de propiedad horizontal, manuales de convivencia, formatos de reserva, etc.
                 </p>
             </div>
+
+            <div class="decorative-rectangles documents">
+                <div class="rectangle rect-1"></div>
+                <div class="rectangle rect-2"></div>
+                <div class="rectangle rect-3"></div>
+            </div>
         </div>
 
         <?php if ($documents_count > 1): ?>

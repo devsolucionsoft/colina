@@ -54,6 +54,11 @@
 
     <section class="stats">
         <div class="up">
+            <div class="decorative-rectangles stats-rectangles">
+                <div class="rectangle rect-1"></div>
+                <div class="rectangle rect-2"></div>
+                <div class="rectangle rect-3"></div>
+            </div>
             <h3>Nuestro impacto en cifras</h3>
             <h2>Datos que inspiran confianza</h2>
         </div>
@@ -73,43 +78,51 @@
         </div>
     </section>
 
-    <section class="about-us">
-        <div class="up">
-            <div class="message">
-                <div class="title">
-                    <h3>Sobre nosotros</h3>
-                    <h2>Creemos en relaciones transparentes y un entorno responsable</h2>
+    <section class="about-and-reasons">
+        <section class="about-us">
+            <div class="up">
+                <div class="message">
+                    <div class="title">
+                        <h3>Sobre nosotros</h3>
+                        <h2>Creemos en relaciones transparentes y un entorno responsable</h2>
+                    </div>
+                </div>
+                <div class="decorative-rectangles about-us-rectangles">
+                    <div class="rectangle rect-1"></div>
+                    <div class="rectangle rect-2"></div>
+                    <div class="rectangle rect-3"></div>
                 </div>
             </div>
-        </div>
-        <?php get_template_part('template-parts/principles'); ?>
-    </section>
+            <?php get_template_part('template-parts/principles'); ?>
+        </section>
 
-    <section class="select-us">
-        <div class="up">
-            <h3>¿Por qué elegirnos?</h3>
-            <h2>Razones para confiar en Colina Office Park</h2>
-        </div>
-        <div class="cards">
-            <?php
-            $reasons = [
-                ['icon' => '1.svg', 'title' => 'Ubicación estratégica en el norte de Bogotá'],
-                ['icon' => '2.svg', 'title' => 'Oficinas modernas y sostenibles'],
-                ['icon' => '3.svg', 'title' => 'Seguridad y monitoreo 24/7'],
-                ['icon' => '4.svg', 'title' => 'Flexibilidad en espacios y servicios'],
-                ['icon' => '5.svg', 'title' => 'Comunidad empresarial conectada'],
+        <section class="select-us">
+            <div class="up">
+                <h3>¿Por qué elegirnos?</h3>
+                <h2>Razones para confiar en Colina Office Park</h2>
+            </div>
+            <div class="cards">
+                <?php
+                $reasons = [
+                    ['icon' => '1.svg', 'title' => 'Ubicación estratégica en el norte de Bogotá'],
+                    ['icon' => '2.svg', 'title' => 'Oficinas modernas y sostenibles'],
+                    ['icon' => '3.svg', 'title' => 'Seguridad y monitoreo 24/7'],
+                    ['icon' => '4.svg', 'title' => 'Flexibilidad en espacios y servicios'],
+                    ['icon' => '5.svg', 'title' => 'Comunidad empresarial conectada'],
 
-            ];
-            foreach ($reasons as $reason): ?>
-                <div class="card">
-                    <div class="icon">
-                        <img src="<?php echo get_template_directory_uri() . '/assets/icons/' . $reason['icon']; ?>" alt="<?php echo esc_attr($reason['title']); ?>">
+                ];
+                foreach ($reasons as $reason): ?>
+                    <div class="card">
+                        <div class="icon">
+                            <img src="<?php echo get_template_directory_uri() . '/assets/icons/' . $reason['icon']; ?>" alt="<?php echo esc_attr($reason['title']); ?>">
+                        </div>
+                        <h4 class="title"><?php echo $reason['title']; ?></h4>
                     </div>
-                    <h4 class="title"><?php echo $reason['title']; ?></h4>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
     </section>
+
 
     <?php get_template_part('template-parts/companies-section'); ?>
 
@@ -119,6 +132,11 @@
             <h2>Preguntas frecuentes</h2>
         </div>
         <div class="items">
+            <div class="decorative-rectangles items-rectangles">
+                <div class="rectangle rect-1"></div>
+                <div class="rectangle rect-2"></div>
+                <div class="rectangle rect-3"></div>
+            </div>
             <?php
             $faqs = [
                 [

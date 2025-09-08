@@ -15,24 +15,29 @@
 
         <?php get_template_part('template-parts/companies-section'); ?>
 
-
-        <section class="about-us">
-            <div class="up">
-                <div class="message">
-                    <div class="title">
-                        <h3>Sobre nosotros</h3>
-                        <h2>Un entorno pensado para crecer juntos</h2>
+        <section class="about-and-documents">
+            <section class="about-us">
+                <div class="up">
+                    <div class="message">
+                        <div class="title">
+                            <h3>Sobre nosotros</h3>
+                            <h2>Un entorno pensado para crecer juntos</h2>
+                        </div>
+                        <p>En Colina Office Park brindamos espacios corporativos de primer nivel en el noroccidente de Bogotá. Nuestro centro empresarial integra oficinas, comercio y servicios en una infraestructura moderna, segura y sostenible, ideal para empresas, profesionales y emprendimientos que buscan crecer en un entorno conectado y dinámico.</p>
                     </div>
-                    <p>En Colina Office Park brindamos espacios corporativos de primer nivel en el noroccidente de Bogotá. Nuestro centro empresarial integra oficinas, comercio y servicios en una infraestructura moderna, segura y sostenible, ideal para empresas, profesionales y emprendimientos que buscan crecer en un entorno conectado y dinámico.</p>
+                    <a class="btn" href="#">Más información</a>
+                    <div class="decorative-rectangles about-us">
+                        <div class="rectangle rect-1"></div>
+                        <div class="rectangle rect-2"></div>
+                        <div class="rectangle rect-3"></div>
+                    </div>
                 </div>
-                <a class="btn" href="#">Más información</a>
-            </div>
-            <?php get_template_part('template-parts/principles'); ?>
-        </section>
+                <?php get_template_part('template-parts/principles'); ?>
+            </section>
 
-        <section class="documents">
             <?php get_template_part('template-parts/documents-section'); ?>
         </section>
+
 
         <section class="payments">
             <div class="information">

@@ -13,6 +13,11 @@ $default_img = get_template_directory_uri() . '/assets/images/news-default.jpg';
 ?>
 <?php if ($news_query->have_posts()): ?>
     <section class="news-section">
+        <div class="decorative-rectangles news-section-1">
+            <div class="rectangle rect-1"></div>
+            <div class="rectangle rect-2"></div>
+            <div class="rectangle rect-3"></div>
+        </div>
         <div class="section-header">
             <h3 class="section-title">NOTICIAS</h3>
             <h2 class="section-subtitle">Novedades y anuncios importantes</h2>
@@ -47,6 +52,11 @@ $default_img = get_template_directory_uri() . '/assets/images/news-default.jpg';
                 <div class="swiper-button-prev news-prev"></div>
                 <div class="swiper-button-next news-next"></div>
             </div>
+        </div>
+        <div class="decorative-rectangles news-section-2">
+            <div class="rectangle rect-1"></div>
+            <div class="rectangle rect-2"></div>
+            <div class="rectangle rect-3"></div>
         </div>
         </div>
     </section>
