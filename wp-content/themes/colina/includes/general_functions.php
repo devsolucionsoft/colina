@@ -36,8 +36,8 @@ function add_meta_tags()
     <meta property="og:description" content="<?php echo esc_attr($page_description); ?>">
     <meta property="og:type" content="<?php echo is_single() ? 'article' : 'website'; ?>">
     <meta property="og:url" content="<?php echo esc_url(is_home() ? home_url() : get_permalink()); ?>">
-    <meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/assets/images/og-default-2.jpg">
-    <meta property="og:image:secure_url" content="<?php echo get_template_directory_uri(); ?>/assets/images/og-default-2.jpg">
+    <meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/assets/images/image-og.jpg">
+    <meta property="og:image:secure_url" content="<?php echo get_template_directory_uri(); ?>/assets/images/image-og.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="<?php echo esc_attr(colina_get_og_title()); ?>">
