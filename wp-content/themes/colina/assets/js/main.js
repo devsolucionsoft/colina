@@ -1,77 +1,104 @@
 document.addEventListener("DOMContentLoaded", function () {
   const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
-  const cards = document.querySelectorAll(".normatividad-document-card");
-  const previewFrame = document.getElementById("document-preview-frame");
-  const previewMsg = document.getElementById("document-preview-message");
-  const popupOverlay = document.getElementById("document-popup-overlay");
-  const popupFrame = document.getElementById("document-popup-frame");
-  const popupClose = document.getElementById("document-popup-close");
-  const popupTitle = document.getElementById("document-popup-title");
-  const popupDownload = document.getElementById("document-popup-download");
 
-  function openPreview(pdfUrl, title) {
-    if (isMobile()) {
-      popupFrame.src = pdfUrl;
-      popupTitle.textContent = title;
-      popupDownload.href = pdfUrl;
-      popupOverlay.classList.add("active");
-      document.body.classList.add("no-scroll");
-    } else {
-      if (previewFrame) {
-        previewFrame.src = pdfUrl;
-        previewFrame.style.display = "block";
+  // Inicializar funcionalidades solo si los elementos existen
+  initDocumentPreview();
+
+  // Funcionalidad de vista previa de documentos
+  function initDocumentPreview() {
+    const cards = document.querySelectorAll(".normatividad-document-card");
+    const previewFrame = document.getElementById("document-preview-frame");
+    const previewMsg = document.getElementById("document-preview-message");
+    const popupOverlay = document.getElementById("document-popup-overlay");
+    const popupFrame = document.getElementById("document-popup-frame");
+    const popupClose = document.getElementById("document-popup-close");
+    const popupTitle = document.getElementById("document-popup-title");
+    const popupDownload = document.getElementById("document-popup-download");
+
+    // Solo ejecutar si existen las tarjetas de documentos
+    if (!cards.length) return;
+
+    function openPreview(pdfUrl, title) {
+      if (isMobile()) {
+        if (popupFrame && popupTitle && popupDownload && popupOverlay) {
+          popupFrame.src = pdfUrl;
+          popupTitle.textContent = title;
+          popupDownload.href = pdfUrl;
+          popupOverlay.classList.add("active");
+          document.body.classList.add("no-scroll");
+        }
+      } else {
+        if (previewFrame) {
+          previewFrame.src = pdfUrl;
+          previewFrame.style.display = "block";
+        }
+        if (previewMsg) previewMsg.style.display = "none";
       }
-      if (previewMsg) previewMsg.style.display = "none";
     }
-  }
 
-  function closePopup() {
-    popupOverlay.classList.remove("active");
-    popupFrame.src = "";
-    document.body.classList.remove("no-scroll");
-  }
+    function closePopup() {
+      if (popupOverlay && popupFrame) {
+        popupOverlay.classList.remove("active");
+        popupFrame.src = "";
+        document.body.classList.remove("no-scroll");
+      }
+    }
 
-  cards.forEach((card) => {
-    card.addEventListener("click", function (e) {
-      if (e.target.closest(".download-link")) return;
-      const pdfUrl = card.getAttribute("data-pdf-url");
-      const title = card.getAttribute("data-title");
-      openPreview(pdfUrl, title);
-    });
-    card.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
+    cards.forEach((card) => {
+      card.addEventListener("click", function (e) {
+        if (e.target.closest(".download-link")) return;
         const pdfUrl = card.getAttribute("data-pdf-url");
         const title = card.getAttribute("data-title");
         openPreview(pdfUrl, title);
+      });
+
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          const pdfUrl = card.getAttribute("data-pdf-url");
+          const title = card.getAttribute("data-title");
+          openPreview(pdfUrl, title);
+        }
+      });
+    });
+
+    if (popupClose) {
+      popupClose.addEventListener("click", closePopup);
+    }
+
+    if (popupOverlay) {
+      popupOverlay.addEventListener("click", function (e) {
+        if (e.target === popupOverlay) {
+          closePopup();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (
+        e.key === "Escape" &&
+        popupOverlay &&
+        popupOverlay.classList.contains("active")
+      ) {
+        closePopup();
       }
     });
-  });
 
-  if (popupClose) {
-    popupClose.addEventListener("click", closePopup);
-  }
-  if (popupOverlay) {
-    popupOverlay.addEventListener("click", function (e) {
-      if (e.target === popupOverlay) closePopup();
+    window.addEventListener("resize", function () {
+      if (
+        !isMobile() &&
+        popupOverlay &&
+        popupOverlay.classList.contains("active")
+      ) {
+        closePopup();
+      }
+      if (isMobile() && previewFrame) {
+        previewFrame.src = "";
+        previewFrame.style.display = "none";
+        if (previewMsg) previewMsg.style.display = "block";
+      }
     });
   }
-  window.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && popupOverlay.classList.contains("active")) {
-      closePopup();
-    }
-  });
-
-  window.addEventListener("resize", function () {
-    if (!isMobile() && popupOverlay.classList.contains("active")) {
-      closePopup();
-    }
-    if (isMobile() && previewFrame) {
-      previewFrame.src = "";
-      previewFrame.style.display = "none";
-      if (previewMsg) previewMsg.style.display = "block";
-    }
-  });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -101,7 +128,12 @@ document.addEventListener("DOMContentLoaded", function () {
       let paged = parseInt(loadMoreBtn.getAttribute("data-paged"), 10) + 1;
       loadMoreBtn.disabled = true;
       loadMoreBtn.textContent = "Cargando...";
-      fetch(ajaxurl, {
+
+      // Usar ajaxurl con fallback
+      const ajaxUrl =
+        typeof ajaxurl !== "undefined" ? ajaxurl : "/wp-admin/admin-ajax.php";
+
+      fetch(ajaxUrl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: "action=load_more_news&paged=" + paged,
@@ -854,6 +886,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData(contactForm);
         formData.append("action", "send_contact_email");
 
+        // Verificar que las variables AJAX estén disponibles
         if (typeof contactFormAjax !== "undefined" && contactFormAjax.nonce) {
           formData.append("nonce", contactFormAjax.nonce);
         }
@@ -863,7 +896,11 @@ document.addEventListener("DOMContentLoaded", () => {
           ajaxUrl = contactFormAjax.ajaxurl;
         } else if (window.contactFormAjax && window.contactFormAjax.ajaxurl) {
           ajaxUrl = window.contactFormAjax.ajaxurl;
+        } else if (typeof ajaxurl !== "undefined") {
+          // Usar la variable global ajaxurl si está disponible
+          ajaxUrl = ajaxurl;
         } else {
+          // Fallback para construir la URL manualmente
           const currentLocation = window.location;
           const pathParts = currentLocation.pathname
             .split("/")
@@ -876,6 +913,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
           ajaxUrl = `${currentLocation.protocol}//${currentLocation.host}${basePath}/wp-admin/admin-ajax.php`;
         }
+
+        console.log("Sending form to:", ajaxUrl);
 
         const response = await fetch(ajaxUrl, {
           method: "POST",
@@ -1008,13 +1047,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addLoadingAnimations();
 
-    if (typeof contactFormAjax !== "undefined") {
-      console.log("Testing AJAX connection...");
-      testAjaxConnection();
+    // Solo ejecutar funciones AJAX si estamos en una página con formulario de contacto
+    // y si las variables AJAX están disponibles
+    if (typeof contactFormAjax !== "undefined" && contactFormAjax.ajaxurl) {
+      console.log("Contact form AJAX is available");
+      // Comentamos la prueba de conexión AJAX ya que puede causar errores 400
+      // testAjaxConnection();
     }
 
     async function testAjaxConnection() {
       try {
+        // Verificación adicional antes de hacer la petición
+        if (
+          typeof contactFormAjax === "undefined" ||
+          !contactFormAjax.ajaxurl
+        ) {
+          console.warn("AJAX variables not available");
+          return;
+        }
+
         const formData = new FormData();
         formData.append("action", "test_ajax");
 
@@ -1022,6 +1073,10 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "POST",
           body: formData,
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
         const data = await response.json();
         console.log("AJAX Test Result:", data);
@@ -1032,7 +1087,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function renewNonce() {
       try {
-        if (typeof contactFormAjax === "undefined") return null;
+        if (
+          typeof contactFormAjax === "undefined" ||
+          !contactFormAjax.ajaxurl
+        ) {
+          console.warn("AJAX variables not available for nonce renewal");
+          return null;
+        }
 
         const formData = new FormData();
         formData.append("action", "get_contact_nonce");
@@ -1042,12 +1103,17 @@ document.addEventListener("DOMContentLoaded", () => {
           body: formData,
         });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         if (data.success && data.nonce) {
           return data.nonce;
         }
         return null;
       } catch (error) {
+        console.error("Error renewing nonce:", error);
         return null;
       }
     }

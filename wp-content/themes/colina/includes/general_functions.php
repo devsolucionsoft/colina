@@ -158,8 +158,8 @@ function colina_get_featured_image($post_id = null, $size = 'full')
         return get_the_post_thumbnail_url($post_id, $size);
     }
 
-    $post_type = get_post_type($post_id);
-    return isset($default_images[$post_type]) ? $default_images[$post_type] : $default_images['default'];
+    // Si no hay imagen destacada, usar og-default para cualquier tipo de contenido
+    return get_template_directory_uri() . '/assets/images/og-default.jpg';
 }
 
 // Filtro para el título del documento
