@@ -804,14 +804,11 @@ a {
     position: absolute;
     left: 0;
     background-image: url("../images/bg-us.png");
-    background-size: contain;
-    background-repeat: no-repeat;
     z-index: 0;
     width: 100%;
-    height: 100%;
-    max-width: 100vw;
+    height: 695px;
     pointer-events: none;
-    bottom: 120px;
+    bottom: 180px;
     background-position: bottom;
   }
 }
