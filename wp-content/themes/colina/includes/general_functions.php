@@ -158,7 +158,7 @@ function colina_get_featured_image()
         return get_the_post_thumbnail_url(null, 'og-image');
     }
 
-    return get_template_directory_uri() . '/assets/images/og-default.jpg';
+    return get_template_directory_uri() . '/assets/images/og-default-2.jpg';
 }
 
 add_action('wp_head', 'pluginname_ajaxurl');
