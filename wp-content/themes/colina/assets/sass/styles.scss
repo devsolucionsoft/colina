@@ -1360,12 +1360,20 @@ a {
       right: 0;
       width: 100%;
       height: 100%;
-      background: url("https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=1024x1024&w=is&k=20&c=NQtm4v1Uzp2luv-6f3qORcq9pDtz2H56p8g9Xix8cY0=")
-        no-repeat center center;
-      background-size: cover;
-      clip-path: polygon(100% 40%, 17% 100%, 100% 100%);
-      z-index: 0;
+      background-image: url("../images/bg-payments.jpg");
+      background-repeat: no-repeat;
       background-position: top left;
+      width: 100%;
+      height: 60%;
+      left: auto;
+      right: 0;
+      bottom: 0;
+      top: unset;
+      border-radius: 0 0 0 32px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      background-size: cover;
+      clip-path: polygon(100% 0, 20% 100%, 100% 100%);
+      z-index: 0;
     }
   }
   .information {
@@ -1475,24 +1483,28 @@ a {
       height: 100%;
       aspect-ratio: 1/1;
       z-index: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      width: fit-content;
     }
 
     .left,
     .right {
-      position: absolute;
-      width: 100%;
+      position: relative;
+      width: 50%;
       aspect-ratio: 1/1;
     }
 
     .left {
-      background: url("https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=1024x1024&w=is&k=20&c=NQtm4v1Uzp2luv-6f3qORcq9pDtz2H56p8g9Xix8cY0=")
-        center center / cover no-repeat;
-      clip-path: polygon(50% 0, 0 50%, 50% 100%);
+      background: url("../images/bg-payments.jpg") right center / cover
+        no-repeat;
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
     }
 
     .right {
       background: #d71f26;
-      clip-path: polygon(50% 0, 50% 100%, 100% 50%);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
     }
   }
 }
@@ -3346,8 +3358,8 @@ a {
     }
 
     .left {
-      background: url("https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=1024x1024&w=is&k=20&c=NQtm4v1Uzp2luv-6f3qORcq9pDtz2H56p8g9Xix8cY0=")
-        center center / cover no-repeat;
+      background: url("../images/bg-history.jpg") center center / cover
+        no-repeat;
       clip-path: polygon(50% 0, 0 50%, 50% 100%);
       @media (max-width: 1140px) {
         clip-path: polygon(100% 0, 0 50%, 100% 100%);
