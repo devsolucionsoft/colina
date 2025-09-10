@@ -12,7 +12,13 @@
     <?php get_header(); ?>
 
     <?php
-    $banner_img = get_template_directory_uri() . '/assets/images/news-banner.jpg';
+    $noticias_id = get_the_ID();
+    $banner_img = get_post_meta($noticias_id, 'noticias_banner_image', true);
+    $banner_title = get_post_meta($noticias_id, 'noticias_banner_title', true);
+    $banner_subtitle = get_post_meta($noticias_id, 'noticias_banner_subtitle', true);
+    if (!$banner_img) {
+        $banner_img = get_template_directory_uri() . '/assets/images/news-banner.jpg';
+    }
     ?>
 
     <section class="banner" style="background-image: url('<?php echo esc_url($banner_img); ?>');">
@@ -28,10 +34,8 @@
                 <span class="current">Noticias</span>
             </div>
             <div class="info">
-                <span class="subtitle">
-                    Noticias
-                </span>
-                <h1 class="title lg">Novedades y anuncios importantes</h1>
+                <?php if ($banner_subtitle): ?><span class="subtitle"><?php echo esc_html($banner_subtitle); ?></span><?php endif; ?>
+                <?php if ($banner_title): ?><h1 class="title lg"><?php echo esc_html($banner_title); ?></h1><?php endif; ?>
             </div>
         </div>
     </section>

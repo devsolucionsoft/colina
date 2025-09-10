@@ -1319,7 +1319,6 @@ a {
     right: 0;
     width: 100%;
     height: 100%;
-    background-image: url("../images/bg-payments.jpg");
     background-repeat: no-repeat;
     background-position: top left;
     width: 100%;
@@ -1455,7 +1454,6 @@ a {
   aspect-ratio: 1/1;
 }
 .payments .diamond .left {
-  background: url("../images/bg-payments.jpg") right center/cover no-repeat;
   clip-path: polygon(100% 0, 0 50%, 100% 100%);
 }
 .payments .diamond .right {
@@ -3122,7 +3120,6 @@ a {
   }
 }
 .history .diamond .left {
-  background: url("../images/bg-history.jpg") center center/cover no-repeat;
   clip-path: polygon(50% 0, 0 50%, 50% 100%);
 }
 @media (max-width: 1140px) {
@@ -3397,6 +3394,7 @@ a {
   flex-direction: column;
   gap: 4px;
   align-items: center;
+  z-index: 5;
 }
 .faq .up h3 {
   font-weight: 700;
@@ -3440,6 +3438,7 @@ a {
   max-width: 40%;
   align-items: center;
   justify-content: center;
+  z-index: 5;
 }
 @media (max-width: 768px) {
   .faq .more-info {

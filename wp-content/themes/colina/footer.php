@@ -4,16 +4,23 @@
             <a class="footer-icon" href="<?php echo esc_url(home_url('/')); ?>">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/logo-colina-black.svg" alt="Colina">
             </a>
-            <p class="paragraph">Lorem ipsum dolor sit amet consectetur. Sem at et vitae facilisis. Condimentum sed scelerisque volutpat congue condimentum eu condimentm. Magna mauris vestibulum lorem aliquet.</p>
+            <p class="paragraph"><?php echo esc_html(get_company_info('company_description')); ?></p>
             <div class="rrss-container">
                 <span>Síguenos en:</span>
                 <div class="rsss">
-                    <a target="_blank" href="#">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/fb.svg" alt="Facebook">
-                    </a>
-                    <a target="_blank" href="#">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/ig.svg" alt="Instagram">
-                    </a>
+                    <?php
+                    $facebook = get_company_info('company_facebook');
+                    $instagram = get_company_info('company_instagram');
+                    if ($facebook && $facebook !== '#'): ?>
+                        <a target="_blank" href="<?php echo esc_url($facebook); ?>">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/fb.svg" alt="Facebook">
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($instagram && $instagram !== '#'): ?>
+                        <a target="_blank" href="<?php echo esc_url($instagram); ?>">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/ig.svg" alt="Instagram">
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -40,22 +47,22 @@
             <ul>
                 <li>
                     <span>Dirección:</span>
-                    <p>Texto de la dirección</p>
+                    <p><?php echo esc_html(get_company_info('company_address')); ?></p>
                 </li>
                 <li>
-                    <span>Dirección:</span>
-                    <p>Texto de la dirección</p>
+                    <span>Horario:</span>
+                    <p><?php echo esc_html(get_company_info('company_hours')); ?></p>
                 </li>
                 <li>
-                    <span>Dirección:</span>
-                    <p>Texto de la dirección</p>
+                    <span>Teléfono:</span>
+                    <p><?php echo esc_html(get_company_info('company_phone')); ?></p>
                 </li>
                 <li>
-                    <span>Dirección:</span>
-                    <p>Texto de la dirección</p>
+                    <span>Correo electrónico:</span>
+                    <p><?php echo esc_html(get_company_info('company_email')); ?></p>
                 </li>
 
-                <a href="#">
+                <a href="<?php echo esc_url(generate_maps_link()); ?>" target="_blank" rel="noopener">
                     <p>Como llegar</p>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/right-arrow.svg" alt="Right Arrow">
                 </a>

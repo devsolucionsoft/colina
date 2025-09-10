@@ -12,10 +12,12 @@
     <?php get_header(); ?>
 
     <?php
-    $banner_img = get_template_directory_uri() . '/assets/images/about-banner.jpg';
+    $about_id = get_the_ID();
+    $banner_img = get_post_meta($about_id, 'about_banner_image', true);
+    $banner_title = get_post_meta($about_id, 'about_banner_title', true);
+    $banner_subtitle = get_post_meta($about_id, 'about_banner_subtitle', true);
     ?>
-
-    <section class="banner" style="background-image: url('<?php echo esc_url($banner_img); ?>');">
+    <section class="banner" <?php if ($banner_img): ?> style="background-image: url('<?php echo esc_url($banner_img); ?>');" <?php endif; ?>>
         <div class="overlay light"></div>
         <div class="content">
             <div class="route">
@@ -28,30 +30,39 @@
                 <span class="current">Sobre nosotros</span>
             </div>
             <div class="info">
-                <span class="subtitle">
-                    Sobre nosotros
-                </span>
-                <h1 class="title lg">Un entorno pensado para crecer juntos</h1>
+                <?php if ($banner_subtitle): ?><span class="subtitle"><?php echo esc_html($banner_subtitle); ?></span><?php endif; ?>
+                <?php if ($banner_title): ?><h1 class="title lg"><?php echo esc_html($banner_title); ?></h1><?php endif; ?>
             </div>
         </div>
     </section>
 
+    <?php
+    $history_title = get_post_meta($about_id, 'about_history_title', true);
+    $history_subtitle = get_post_meta($about_id, 'about_history_subtitle', true);
+    $history_text = get_post_meta($about_id, 'about_history_text', true);
+    $history_diamond = get_post_meta($about_id, 'about_history_diamond', true);
+    ?>
     <section class="history">
         <div class="information">
             <div class="text">
-                <h3>Descubre nuestra historia y propósito</h3>
-                <h2>Un proyecto diseñado para empresas que buscan más.</h2>
-                <p>Colina Office Park nació con la misión de ofrecer espacios corporativos de primer nivel en el norte de Bogotá, integrando infraestructura moderna, servicios de calidad y prácticas sostenibles. Nuestro objetivo es crear un entorno conectado donde las empresas crezcan y prosperen..</p>
+                <?php if ($history_subtitle): ?><h3><?php echo esc_html($history_subtitle); ?></h3><?php endif; ?>
+                <?php if ($history_title): ?><h2><?php echo esc_html($history_title); ?></h2><?php endif; ?>
+                <?php if ($history_text): ?><p><?php echo $history_text; ?></p><?php endif; ?>
             </div>
         </div>
         <figure class="diamond">
             <div class="diamond-shape">
-                <div class="left"></div>
+                <div class="left" <?php if ($history_diamond): ?> style="background-image: url('<?php echo esc_url($history_diamond); ?>'); background-size: cover; background-position: right center; background-repeat: no-repeat;" <?php endif; ?>></div>
                 <div class="right"></div>
             </div>
         </figure>
     </section>
 
+    <?php
+    $stats = get_post_meta($about_id, 'about_stats', true);
+    $stats_title = get_post_meta($about_id, 'about_stats_title', true);
+    $stats_subtitle = get_post_meta($about_id, 'about_stats_subtitle', true);
+    ?>
     <section class="stats">
         <div class="up">
             <div class="decorative-rectangles stats-rectangles">
@@ -59,32 +70,41 @@
                 <div class="rectangle rect-2"></div>
                 <div class="rectangle rect-3"></div>
             </div>
-            <h3>Nuestro impacto en cifras</h3>
-            <h2>Datos que inspiran confianza</h2>
+            <?php if ($stats_title): ?><h3><?php echo esc_html($stats_title); ?></h3><?php endif; ?>
+            <?php if ($stats_subtitle): ?><h2><?php echo esc_html($stats_subtitle); ?></h2><?php endif; ?>
         </div>
         <div class="stats-container">
             <?php
-            $stats = [
-                ['number' => '+30', 'label' => 'Empresas confían en nosotros'],
-                ['number' => '+10.000 m²', 'label' => 'Infraestructura empresarial'],
-                ['number' => '5 años', 'label' => 'Creando entornos seguros y modernos']
-            ];
-            foreach ($stats as $stat): ?>
-                <div class="stat-card">
-                    <span class="number"><?php echo $stat['number']; ?></span>
-                    <span class="label"><?php echo $stat['label']; ?></span>
-                </div>
-            <?php endforeach; ?>
+            if (!empty($stats) && is_array($stats)) {
+                foreach ($stats as $stat) {
+                    $number = isset($stat['number']) ? $stat['number'] : '';
+                    $label = isset($stat['label']) ? $stat['label'] : '';
+                    if ($number || $label): ?>
+                        <div class="stat-card">
+                            <?php if ($number): ?><span class="number"><?php echo esc_html($number); ?></span><?php endif; ?>
+                            <?php if ($label): ?><span class="label"><?php echo esc_html($label); ?></span><?php endif; ?>
+                        </div>
+            <?php endif;
+                }
+            }
+            ?>
         </div>
     </section>
 
+    <?php
+    $reasons_title = get_post_meta($about_id, 'about_reasons_title', true);
+    $reasons_subtitle = get_post_meta($about_id, 'about_reasons_subtitle', true);
+    $reasons = get_post_meta($about_id, 'about_reasons', true);
+    $principles_title = get_post_meta($about_id, 'about_principles_title', true);
+    $principles_subtitle = get_post_meta($about_id, 'about_principles_subtitle', true);
+    ?>
     <section class="about-and-reasons">
         <section class="about-us">
             <div class="up">
                 <div class="message">
                     <div class="title">
-                        <h3>Sobre nosotros</h3>
-                        <h2>Creemos en relaciones transparentes y un entorno responsable</h2>
+                        <?php if ($principles_subtitle): ?><h3><?php echo esc_html($principles_subtitle); ?></h3><?php endif; ?>
+                        <?php if ($principles_title): ?><h2><?php echo esc_html($principles_title); ?></h2><?php endif; ?>
                     </div>
                 </div>
                 <div class="decorative-rectangles about-us-rectangles">
@@ -95,30 +115,28 @@
             </div>
             <?php get_template_part('template-parts/principles'); ?>
         </section>
-
         <section class="select-us">
             <div class="up">
-                <h3>¿Por qué elegirnos?</h3>
-                <h2>Razones para confiar en Colina Office Park</h2>
+                <?php if ($reasons_subtitle): ?><h3><?php echo esc_html($reasons_subtitle); ?></h3><?php endif; ?>
+                <?php if ($reasons_title): ?><h2><?php echo esc_html($reasons_title); ?></h2><?php endif; ?>
             </div>
             <div class="cards">
                 <?php
-                $reasons = [
-                    ['icon' => '1.svg', 'title' => 'Ubicación estratégica en el norte de Bogotá'],
-                    ['icon' => '2.svg', 'title' => 'Oficinas modernas y sostenibles'],
-                    ['icon' => '3.svg', 'title' => 'Seguridad y monitoreo 24/7'],
-                    ['icon' => '4.svg', 'title' => 'Flexibilidad en espacios y servicios'],
-                    ['icon' => '5.svg', 'title' => 'Comunidad empresarial conectada'],
-
-                ];
-                foreach ($reasons as $reason): ?>
-                    <div class="card">
-                        <div class="icon">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/icons/' . $reason['icon']; ?>" alt="<?php echo esc_attr($reason['title']); ?>">
-                        </div>
-                        <h4 class="title"><?php echo $reason['title']; ?></h4>
-                    </div>
-                <?php endforeach; ?>
+                if (!empty($reasons) && is_array($reasons)) {
+                    foreach ($reasons as $reason) {
+                        $icon = isset($reason['icon']) ? $reason['icon'] : '';
+                        $title = isset($reason['title']) ? $reason['title'] : '';
+                        if ($icon || $title): ?>
+                            <div class="card">
+                                <div class="icon">
+                                    <?php if ($icon): ?><img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($title); ?>"><?php endif; ?>
+                                </div>
+                                <?php if ($title): ?><h4 class="title"><?php echo esc_html($title); ?></h4><?php endif; ?>
+                            </div>
+                <?php endif;
+                    }
+                }
+                ?>
             </div>
         </section>
     </section>
@@ -126,10 +144,14 @@
 
     <?php get_template_part('template-parts/companies-section'); ?>
 
+    <?php $faqs = get_post_meta($about_id, 'about_faq', true);
+    $faq_title = get_post_meta($about_id, 'about_faq_title', true);
+    $faq_subtitle = get_post_meta($about_id, 'about_faq_subtitle', true);
+    ?>
     <section class="faq">
         <div class="up">
-            <h3>Sobre nosotros</h3>
-            <h2>Preguntas frecuentes</h2>
+            <?php if ($faq_title): ?><h3><?php echo esc_html($faq_title); ?></h3><?php endif; ?>
+            <?php if ($faq_subtitle): ?><h2><?php echo esc_html($faq_subtitle); ?></h2><?php endif; ?>
         </div>
         <div class="items">
             <div class="decorative-rectangles items-rectangles">
@@ -138,53 +160,34 @@
                 <div class="rectangle rect-3"></div>
             </div>
             <?php
-            $faqs = [
-                [
-                    'q' => '¿Qué servicios ofrece Colina Office Park?',
-                    'a' => 'Ofrecemos oficinas modernas, espacios flexibles, seguridad 24/7, parqueaderos, zonas comunes y servicios empresariales integrales.'
-                ],
-                [
-                    'q' => '¿Cómo puedo consultar la normatividad interna?',
-                    'a' => 'Puedes consultar la normatividad interna en la sección de documentos o solicitándola en la administración.'
-                ],
-                [
-                    'q' => '¿Qué métodos de pago aceptan?',
-                    'a' => 'Aceptamos transferencias bancarias, pagos en línea y otros métodos según acuerdo.'
-                ],
-                [
-                    'q' => '¿Colina Office Park cuenta con parqueadero?',
-                    'a' => 'Sí, contamos con parqueaderos para visitantes y arrendatarios.'
-                ],
-                [
-                    'q' => '¿Cómo puedo reportar una novedad o incidente?',
-                    'a' => 'Puedes reportar novedades o incidentes a través de la administración o el formulario de contacto.'
-                ],
-                [
-                    'q' => '¿El centro empresarial tiene vigilancia y cámaras de seguridad?',
-                    'a' => 'Sí, contamos con vigilancia privada y monitoreo por cámaras las 24 horas.'
-                ],
-                [
-                    'q' => '¿Qué debo hacer si quiero arrendar un espacio en Colina Office Park?',
-                    'a' => 'Contáctanos a través del formulario o por teléfono para recibir asesoría personalizada.'
-                ],
-            ];
-            foreach ($faqs as $faq): ?>
-                <div class="item">
-                    <div class="item-title">
-                        <span><?php echo $faq['q']; ?></span>
-                        <button class="item-toggle" aria-label="Mostrar respuesta"><span>+</span></button>
-                    </div>
-                    <div class="item-content">
-                        <?php echo $faq['a']; ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+            if (!empty($faqs) && is_array($faqs)) {
+                foreach ($faqs as $faq) {
+                    $q = isset($faq['q']) ? $faq['q'] : '';
+                    $a = isset($faq['a']) ? $faq['a'] : '';
+                    if ($q || $a): ?>
+                        <div class="item">
+                            <div class="item-title">
+                                <?php if ($q): ?><span><?php echo esc_html($q); ?></span><?php endif; ?>
+                                <button class="item-toggle" aria-label="Mostrar respuesta"><span>+</span></button>
+                            </div>
+                            <div class="item-content">
+                                <?php if ($a): ?><?php echo esc_html($a); ?><?php endif; ?>
+                            </div>
+                        </div>
+            <?php endif;
+                }
+            }
+            ?>
         </div>
+        <?php
+        $more_info_title = get_post_meta($about_id, 'about_more_info_title', true);
+        $more_info_text = get_post_meta($about_id, 'about_more_info_text', true);
+        ?>
         <div class="more-info">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/logo-colina-black.svg" alt="Colina">
             <div class="text">
-                <h2>¿Tienes alguna pregunta?</h2>
-                <h3>Si necesita ayuda, visite nuestra página de contacto o llame a nuestra línea de atención al cliente al (000) 000 0000. Nuestro equipo especializado está listo para ayudarle en lo que necesite.</h3>
+                <?php if ($more_info_title): ?><h2><?php echo esc_html($more_info_title); ?></h2><?php endif; ?>
+                <?php if ($more_info_text): ?><h3><?php echo esc_html($more_info_text); ?></h3><?php endif; ?>
             </div>
         </div>
     </section>

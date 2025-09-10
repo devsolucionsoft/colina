@@ -10,6 +10,10 @@ require get_template_directory() . '/includes/general_functions.php';
 require get_template_directory() . '/includes/js_css.php';
 require get_template_directory() . '/includes/class-wp-nav-menu-link-class.php';
 require get_template_directory() . '/includes/contact-form-handler.php';
+require get_template_directory() . '/includes/backend/fields_home.php';
+require get_template_directory() . '/includes/backend/fields_about_us.php';
+require get_template_directory() . '/includes/backend/fields_normatividad.php';
+require get_template_directory() . '/includes/backend/fields_noticias.php';
 
 function remove_editor()
 {
@@ -149,4 +153,45 @@ function colina_load_more_news()
     $has_more = ($news_query->max_num_pages > $paged);
     wp_send_json_success(['html' => $html, 'has_more' => $has_more, 'next_paged' => $paged + 1]);
     wp_die();
+}
+
+/**
+ * Company Information Helper Functions
+ */
+
+/**
+ * Get company information from options
+ */
+function get_company_info($field_name, $default = '')
+{
+    $value = of_get_option($field_name, $default);
+    return !empty($value) ? $value : $default;
+}
+
+/**
+ * Generate Waze link from coordinates
+ */
+function generate_waze_link($lat = null, $lng = null)
+{
+    if ($lat === null) $lat = get_company_info('company_latitude');
+    if ($lng === null) $lng = get_company_info('company_longitude');
+
+    if (empty($lat) || empty($lng)) {
+        return '#';
+    }
+    return "https://waze.com/ul?ll={$lat},{$lng}&navigate=yes";
+}
+
+/**
+ * Generate Google Maps link from coordinates
+ */
+function generate_maps_link($lat = null, $lng = null)
+{
+    if ($lat === null) $lat = get_company_info('company_latitude');
+    if ($lng === null) $lng = get_company_info('company_longitude');
+
+    if (empty($lat) || empty($lng)) {
+        return '#';
+    }
+    return "https://maps.google.com/?q={$lat},{$lng}";
 }

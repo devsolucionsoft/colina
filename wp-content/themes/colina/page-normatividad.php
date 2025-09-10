@@ -12,7 +12,10 @@
     <?php get_header(); ?>
 
     <?php
-    $banner_img = get_template_directory_uri() . '/assets/images/docs-banner.jpg';
+    $normatividad_id = get_the_ID();
+    $banner_img = get_post_meta($normatividad_id, 'normatividad_banner_image', true);
+    $banner_title = get_post_meta($normatividad_id, 'normatividad_banner_title', true);
+    $banner_subtitle = get_post_meta($normatividad_id, 'normatividad_banner_subtitle', true);
     ?>
 
     <section class="banner" style="background-image: url('<?php echo esc_url($banner_img); ?>');">
@@ -28,10 +31,8 @@
                 <span class="current">Normatividad y documentos </span>
             </div>
             <div class="info">
-                <span class="subtitle">
-                    Normatividad y documentos
-                </span>
-                <h1 class="title lg">Transparencia y normativas claras </h1>
+                <?php if ($banner_subtitle): ?><span class="subtitle"><?php echo esc_html($banner_subtitle); ?></span><?php endif; ?>
+                <?php if ($banner_title): ?><h1 class="title lg"><?php echo esc_html($banner_title); ?></h1><?php endif; ?>
             </div>
         </div>
     </section>
@@ -66,12 +67,15 @@
 
                 <!-- Listado de documentos -->
                 <div class="normatividad-documents-list-container">
+                    <?php
+                    $section_title = get_post_meta($normatividad_id, 'normatividad_section_title', true);
+                    $section_subtitle = get_post_meta($normatividad_id, 'normatividad_section_subtitle', true);
+                    $section_description = get_post_meta($normatividad_id, 'normatividad_section_description', true);
+                    ?>
                     <div class="section-header">
-                        <h2 class="section-title">NORMATIVIDAD Y DOCUMENTOS</h2>
-                        <h3 class="section-subtitle">Transparencia y normativas claras</h3>
-                        <p class="section-description">
-                            Encuentra aquí los documentos clave para la operación del edificio y el uso de los espacios: reglamento de propiedad horizontal, manuales de convivencia, formatos de reserva, etc.
-                        </p>
+                        <?php if ($section_title): ?><h2 class="section-title"><?php echo esc_html($section_title); ?></h2><?php endif; ?>
+                        <?php if ($section_subtitle): ?><h3 class="section-subtitle"><?php echo esc_html($section_subtitle); ?></h3><?php endif; ?>
+                        <?php if ($section_description): ?><p class="section-description"><?php echo esc_html($section_description); ?></p><?php endif; ?>
                     </div>
                     <div class="normatividad-documents-list">
                         <?php foreach ($documents as $i => $document): ?>

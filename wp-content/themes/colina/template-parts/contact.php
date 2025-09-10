@@ -14,7 +14,7 @@
                 </div>
                 <div class="contact-text">
                     <h4>Correo electrónico</h4>
-                    <p>info@colina.com</p>
+                    <p><?php echo esc_html(get_company_info('company_email')); ?></p>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                 </div>
                 <div class="contact-text">
                     <h4>Número de teléfono</h4>
-                    <p>+57 (1) 234-5678</p>
+                    <p><?php echo esc_html(get_company_info('company_phone')); ?></p>
                 </div>
             </div>
 
@@ -38,12 +38,12 @@
                 </div>
                 <div class="contact-text">
                     <h4>Ubicación</h4>
-                    <p>Bogotá, Colina Campestre</p>
+                    <p><?php echo esc_html(get_company_info('company_address')); ?></p>
                 </div>
             </div>
 
             <?php if (function_exists('is_page') && is_page('contacto')): ?>
-                <a href="https://waze.com/ul?ll=4.710989,-74.072092&navigate=yes" target="_blank" rel="noopener" class="btn btn-waze" data-aos-delay="600">
+                <a href="<?php echo esc_url(generate_waze_link()); ?>" target="_blank" rel="noopener" class="btn btn-waze" data-aos-delay="600">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/waze.png" alt="Waze">
                     <span>
                         Abrir en Waze
