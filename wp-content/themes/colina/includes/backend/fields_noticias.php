@@ -2,6 +2,7 @@
 add_action('cmb2_admin_init', 'cmb2_fields_noticias');
 function cmb2_fields_noticias()
 {
+    $news_page = of_get_option('news_page');
     $cmb = new_cmb2_box(array(
         'id'            => 'fields_noticias',
         'title'         => __('Opciones Noticias', 'colina'),
@@ -9,6 +10,7 @@ function cmb2_fields_noticias()
         'context'       => 'normal',
         'priority'      => 'high',
         'show_names'    => true,
+        'show_on'    => array('id' => array($news_page)),
     ));
 
     // === Banner ===
