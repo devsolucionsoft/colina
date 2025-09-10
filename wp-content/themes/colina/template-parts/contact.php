@@ -78,8 +78,8 @@
                 <label for="contact-subject">Selecciona</label>
                 <div class="select-container">
                     <select id="contact-subject" name="subject" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="PQR">PQR</option>
+                        <option value="" disabled>Selecciona una opción</option>
+                        <option value="PQR" selected>PQR</option>
                         <option value="Información General">Información General</option>
                         <option value="Soporte Técnico">Soporte Técnico</option>
                         <option value="Ventas">Ventas</option>
