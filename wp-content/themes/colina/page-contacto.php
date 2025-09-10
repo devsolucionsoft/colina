@@ -23,13 +23,17 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (window.innerWidth > 1024) {
-                var map = L.map('leaflet-map').setView([4.710989, -74.072092], 16);
+                <?php
+                $latitude = get_company_info('company_latitude');
+                $longitude = get_company_info('company_longitude');
+                ?>
+                var map = L.map('leaflet-map').setView([<?php echo esc_js($latitude); ?>, <?php echo esc_js($longitude); ?>], 16);
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     subdomains: 'abcd',
                     maxZoom: 19
                 }).addTo(map);
-                L.marker([4.710989, -74.072092]).addTo(map)
+                L.marker([<?php echo esc_js($latitude); ?>, <?php echo esc_js($longitude); ?>]).addTo(map)
                     .bindPopup('Ubicación Colina').openPopup();
             }
         });
