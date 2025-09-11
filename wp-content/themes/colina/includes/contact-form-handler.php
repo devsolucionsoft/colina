@@ -103,7 +103,7 @@ class ColinaContactForm
      */
     private function send_admin_notification($name, $email, $subject, $message)
     {
-        $admin_email = 'davidsantiagomanchola@gmail.com';
+        $admin_email = 'colinaoffice@gmail.com';
         $site_name = get_bloginfo('name');
 
         $email_subject = "[{$site_name}] Nueva consulta: {$subject}";
@@ -135,7 +135,7 @@ class ColinaContactForm
     private function send_user_confirmation($name, $email, $subject)
     {
         $site_name = get_bloginfo('name');
-        $admin_email = 'davidsantiagomanchola@gmail.com';
+        $admin_email = 'colinaoffice@gmail.com';
 
         $email_subject = "Confirmación de recepción - {$site_name}";
 
