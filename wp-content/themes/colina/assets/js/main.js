@@ -1118,4 +1118,80 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
+
+  // Controlar animaciones de decorative-rectangles con AOS
+  function initDecorativeRectanglesAnimation() {
+    // Inicializar AOS si no está inicializado
+    if (typeof AOS !== "undefined") {
+      AOS.init({
+        duration: 800,
+        easing: "ease-out-cubic",
+        once: true,
+        offset: 100,
+      });
+    }
+
+    // Observer para detectar cuando los decorative-rectangles entran en viewport
+    const decorativeRectangles = document.querySelectorAll(
+      ".decorative-rectangles"
+    );
+    console.log("Found decorative rectangles:", decorativeRectangles.length);
+
+    decorativeRectangles.forEach((container, containerIndex) => {
+      console.log(`Setting up observer for container ${containerIndex + 1}`);
+
+      // Crear observer para este contenedor
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              console.log("Decorative rectangles entered viewport!");
+
+              // Reiniciar y activar animaciones de los rectángulos hijos
+              const rectangles = entry.target.querySelectorAll(".rectangle");
+              console.log("Found rectangles:", rectangles.length);
+
+              rectangles.forEach((rect, index) => {
+                console.log(
+                  `Animating rectangle ${index + 1} with class:`,
+                  rect.className
+                );
+
+                // Primero, resetear la animación
+                rect.style.animation = "none";
+                rect.offsetHeight; // Forzar reflow
+
+                // Luego aplicar la animación correspondiente
+                if (rect.classList.contains("rect-1")) {
+                  rect.style.animation =
+                    "drawYellowBorder 2s ease-out 0.5s forwards";
+                  console.log("Applied yellow animation");
+                } else if (rect.classList.contains("rect-2")) {
+                  rect.style.animation =
+                    "drawBlueBorder 2s ease-out 1.2s forwards";
+                  console.log("Applied blue animation");
+                } else if (rect.classList.contains("rect-3")) {
+                  rect.style.animation =
+                    "drawRedBorder 2s ease-out 1.8s forwards";
+                  console.log("Applied red animation");
+                }
+              });
+
+              // Detener observación una vez activado
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.1, // Activar cuando 10% del elemento es visible
+          rootMargin: "0px 0px -50px 0px", // Activar un poco antes de que sea completamente visible
+        }
+      );
+
+      observer.observe(container);
+    });
+  }
+
+  // Inicializar animaciones de decorative-rectangles
+  initDecorativeRectanglesAnimation();
 });

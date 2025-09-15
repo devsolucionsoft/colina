@@ -913,7 +913,7 @@ a {
 }
 @media (max-width: 768px) {
   .decorative-rectangles.about-us {
-    top: 20px;
+    top: 0px;
     right: -180px;
   }
 }
@@ -1041,20 +1041,17 @@ a {
   top: 0px;
   left: 0;
   z-index: 1;
-  animation: drawYellowBorder 2s ease-out 0.5s forwards;
 }
 .decorative-rectangles .rectangle.rect-2 {
   top: 12px;
   right: 0px;
   z-index: 3;
-  animation: drawBlueBorder 2s ease-out 1.2s forwards;
 }
 .decorative-rectangles .rectangle.rect-3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  animation: drawRedBorder 2s ease-out 1.8s forwards;
 }
 
 @keyframes drawYellowBorder {
@@ -3547,7 +3544,7 @@ a {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom right;
-  z-index: 0;
+  z-index: -1;
   height: 100%;
 }
 @media (max-width: 768px) {

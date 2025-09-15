@@ -949,7 +949,7 @@ a {
     right: -145px;
     bottom: -120px;
     @media (max-width: 768px) {
-      top: 20px;
+      top: 0px;
       right: -180px;
     }
   }
@@ -1068,14 +1068,12 @@ a {
       top: 0px;
       left: 0;
       z-index: 1;
-      animation: drawYellowBorder 2s ease-out 0.5s forwards;
     }
 
     &.rect-2 {
       top: 12px;
       right: 0px;
       z-index: 3;
-      animation: drawBlueBorder 2s ease-out 1.2s forwards;
     }
 
     &.rect-3 {
@@ -1083,7 +1081,6 @@ a {
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 2;
-      animation: drawRedBorder 2s ease-out 1.8s forwards;
     }
   }
 }
@@ -3766,7 +3763,7 @@ a {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom right;
-    z-index: 0;
+    z-index: -1;
     height: 100%;
     @media (max-width: 768px) {
       display: none;

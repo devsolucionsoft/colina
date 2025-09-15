@@ -13,10 +13,10 @@ $default_img = get_template_directory_uri() . '/assets/images/news-default.jpg';
 ?>
 <?php if ($news_query->have_posts()): ?>
     <section class="news-section">
-        <div class="decorative-rectangles news-section-1">
-            <div class="rectangle rect-1"></div>
-            <div class="rectangle rect-2"></div>
-            <div class="rectangle rect-3"></div>
+        <div class="decorative-rectangles news-section-1" data-aos="fade-right" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+            <div class="rectangle rect-1" data-aos="zoom-in" data-aos-delay="200" data-aos-anchor-placement="top-bottom"></div>
+            <div class="rectangle rect-2" data-aos="zoom-in" data-aos-delay="300" data-aos-anchor-placement="top-bottom"></div>
+            <div class="rectangle rect-3" data-aos="zoom-in" data-aos-delay="400" data-aos-anchor-placement="top-bottom"></div>
         </div>
         <div class="section-header">
             <h3 class="section-title">NOTICIAS</h3>
@@ -53,10 +53,10 @@ $default_img = get_template_directory_uri() . '/assets/images/news-default.jpg';
                 <div class="swiper-button-next news-next"></div>
             </div>
         </div>
-        <div class="decorative-rectangles news-section-2">
-            <div class="rectangle rect-1"></div>
-            <div class="rectangle rect-2"></div>
-            <div class="rectangle rect-3"></div>
+        <div class="decorative-rectangles news-section-2" data-aos="fade-left" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+            <div class="rectangle rect-1" data-aos="zoom-in" data-aos-delay="200" data-aos-anchor-placement="top-bottom"></div>
+            <div class="rectangle rect-2" data-aos="zoom-in" data-aos-delay="300" data-aos-anchor-placement="top-bottom"></div>
+            <div class="rectangle rect-3" data-aos="zoom-in" data-aos-delay="400" data-aos-anchor-placement="top-bottom"></div>
         </div>
         </div>
     </section>
