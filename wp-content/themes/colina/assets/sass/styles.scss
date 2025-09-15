@@ -249,7 +249,9 @@ a {
       overflow: hidden;
 
       .companies-swiper {
-        overflow: visible;
+        overflow: hidden !important;
+        margin: 0 60px; 
+
 
         .swiper-slide {
           height: auto;

@@ -241,7 +241,8 @@ a {
   overflow: hidden;
 }
 .companies-section .companies-container .companies-swiper-container .companies-swiper {
-  overflow: visible;
+  overflow: hidden !important;
+  margin: 0 60px;
 }
 .companies-section .companies-container .companies-swiper-container .companies-swiper .swiper-slide {
   height: auto;

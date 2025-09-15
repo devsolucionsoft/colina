@@ -27,9 +27,10 @@ $companies_count = count($companies);
                             <?php endforeach; ?>
                         </div>
 
-                        <div class="swiper-button-next companies-next"></div>
-                        <div class="swiper-button-prev companies-prev"></div>
+
                     </div>
+                    <div class="swiper-button-next companies-next"></div>
+                    <div class="swiper-button-prev companies-prev"></div>
                 </div>
 
             <?php else: ?>
