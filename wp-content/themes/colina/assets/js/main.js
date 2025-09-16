@@ -387,7 +387,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const description = currentSlide.getAttribute("data-description");
             const buttonText = currentSlide.getAttribute("data-button-text");
             const buttonLink = currentSlide.getAttribute("data-button-link");
-            const showLogo = currentSlide.getAttribute("data-show-logo") === "1";
+            const showLogo =
+              currentSlide.getAttribute("data-show-logo") === "1";
 
             if (description) panelText.textContent = description;
             if (buttonText) panelButton.textContent = buttonText;
