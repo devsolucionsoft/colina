@@ -164,7 +164,7 @@
             <?php if ($faq_subtitle): ?><h2 data-aos="fade-up" data-aos-delay="400"><?php echo esc_html($faq_subtitle); ?></h2><?php endif; ?>
         </div>
         <div class="items" data-aos="fade-up" data-aos-delay="500">
-            <div class="decorative-rectangles items-rectangles" data-aos="fade-right" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+            <div class="decorative-rectangles items-rectangles" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
                 <div class="rectangle rect-1" data-aos="zoom-in" data-aos-delay="200" data-aos-anchor-placement="top-bottom"></div>
                 <div class="rectangle rect-2" data-aos="zoom-in" data-aos-delay="300" data-aos-anchor-placement="top-bottom"></div>
                 <div class="rectangle rect-3" data-aos="zoom-in" data-aos-delay="400" data-aos-anchor-placement="top-bottom"></div>
