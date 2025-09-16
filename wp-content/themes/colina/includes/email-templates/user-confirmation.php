@@ -2,7 +2,7 @@
 
 /**
  * User Confirmation Email Template
- * Variables available: $name, $email, $subject
+ * Variables available: $name, $email, $subject, $radicado_number
  */
 
 $site_name = get_bloginfo('name');
@@ -359,6 +359,12 @@ $current_year = date('Y');
             </div>
         </div>
 
+        <!-- Radicado Number -->
+        <div style="background: #d71f26; color: white; padding: 20px; text-align: center; margin: 0;">
+            <h2 style="margin: 0; color: white; font-size: 24px;">Tu número de radicado: <?php echo esc_html($radicado_number); ?></h2>
+            <p style="margin: 5px 0 0 0; color: white; opacity: 0.9;">Guarda este número para futuras referencias</p>
+        </div>
+
         <!-- Content -->
         <div class="content">
             <!-- Welcome Message -->
@@ -370,6 +376,11 @@ $current_year = date('Y');
             <!-- Details Box -->
             <div class="details-box">
                 <h3>Resumen de tu consulta</h3>
+
+                <div class="detail-item">
+                    <span class="detail-label">Número de Radicado:</span>
+                    <span class="detail-value" style="font-weight: bold; color: #d71f26;"><?php echo esc_html($radicado_number); ?></span>
+                </div>
 
                 <div class="detail-item">
                     <span class="detail-label">Tema:</span>

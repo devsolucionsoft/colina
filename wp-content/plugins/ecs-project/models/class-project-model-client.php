@@ -90,6 +90,13 @@ class Project_Model_Client
             'id'      => $prefix . 'images',
             'type'    => 'file',
         ));
+
+        $cmb->add_field(array(
+            'name'    => 'URL del Cliente',
+            'desc'    => 'Enlace que se abrirá al hacer clic en el logo (opcional)',
+            'id'      => $prefix . 'url',
+            'type'    => 'text_url',
+        ));
     }
 
     function add_meta_boxes()

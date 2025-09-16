@@ -14,37 +14,68 @@ $companies_count = count($companies);
                         <div class="swiper-wrapper">
                             <?php foreach ($companies as $company): ?>
                                 <div class="swiper-slide">
-                                    <div class="company-card">
-                                        <?php if ($company['image']): ?>
-                                            <div class="company-image">
-                                                <img src="<?php echo esc_url($company['image']); ?>"
-                                                    alt="<?php echo esc_attr($company['title']); ?>"
-                                                    loading="lazy">
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
+                                    <?php if (!empty($company['url'])): ?>
+                                        <a href="<?php echo esc_url($company['url']); ?>"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="company-card"
+                                            title="Visitar sitio web de <?php echo esc_attr($company['title']); ?>">
+                                            <?php if ($company['image']): ?>
+                                                <div class="company-image">
+                                                    <img src="<?php echo esc_url($company['image']); ?>"
+                                                        alt="<?php echo esc_attr($company['title']); ?>"
+                                                        loading="lazy">
+                                                </div>
+                                            <?php endif; ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <div class="company-card">
+                                            <?php if ($company['image']): ?>
+                                                <div class="company-image">
+                                                    <img src="<?php echo esc_url($company['image']); ?>"
+                                                        alt="<?php echo esc_attr($company['title']); ?>"
+                                                        loading="lazy">
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             <?php endforeach; ?>
                         </div>
 
-
+                        <div class="swiper-button-next companies-next"></div>
+                        <div class="swiper-button-prev companies-prev"></div>
                     </div>
-                    <div class="swiper-button-next companies-next"></div>
-                    <div class="swiper-button-prev companies-prev"></div>
                 </div>
 
             <?php else: ?>
                 <div class="single-company">
                     <?php $company = $companies[0]; ?>
-                    <div class="company-card">
-                        <?php if ($company['image']): ?>
-                            <div class="company-image">
-                                <img src="<?php echo esc_url($company['image']); ?>"
-                                    alt="<?php echo esc_attr($company['title']); ?>"
-                                    loading="lazy">
-                            </div>
-                        <?php endif; ?>
-                    </div>
+                    <?php if (!empty($company['url'])): ?>
+                        <a href="<?php echo esc_url($company['url']); ?>"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="company-card"
+                            title="Visitar sitio web de <?php echo esc_attr($company['title']); ?>">
+                            <?php if ($company['image']): ?>
+                                <div class="company-image">
+                                    <img src="<?php echo esc_url($company['image']); ?>"
+                                        alt="<?php echo esc_attr($company['title']); ?>"
+                                        loading="lazy">
+                                </div>
+                            <?php endif; ?>
+                        </a>
+                    <?php else: ?>
+                        <div class="company-card">
+                            <?php if ($company['image']): ?>
+                                <div class="company-image">
+                                    <img src="<?php echo esc_url($company['image']); ?>"
+                                        alt="<?php echo esc_attr($company['title']); ?>"
+                                        loading="lazy">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
         </div>

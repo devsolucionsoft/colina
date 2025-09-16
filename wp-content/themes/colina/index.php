@@ -77,7 +77,7 @@
                         </div>
                     </div>
 
-                    <?php if ($documents_count > 1): ?>
+                    <!-- <?php if ($documents_count > 1): ?>
                         <div class="documents-swiper-container" data-aos="fade-up" data-aos-delay="600">
                             <div class="swiper documents-swiper">
                                 <div class="swiper-wrapper">
@@ -141,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                 </section>
             <?php endif; ?>
         </section>
@@ -178,8 +178,8 @@
                     <?php if ($payments_subtitle): ?><h2 data-aos="fade-right" data-aos-delay="500"><?php echo esc_html($payments_subtitle); ?></h2><?php endif; ?>
                     <?php if ($payments_text): ?><p data-aos="fade-up" data-aos-delay="600"><?php echo $payments_text; ?></p><?php endif; ?>
                 </div>
-                <?php if ($payments_btn_text && $payments_btn_link): ?>
-                    <a class="btn" href="<?php echo esc_url($payments_btn_link); ?>" data-aos="zoom-in" data-aos-delay="700"><?php echo esc_html($payments_btn_text); ?></a>
+                <?php if ($payments_btn_text): ?>
+                    <a class="btn" <?php echo $payments_btn_link ? 'href="' . esc_url($payments_btn_link) . '"' : 'onclick="return false;" style="cursor: default;"'; ?> data-aos="zoom-in" data-aos-delay="700"><?php echo esc_html($payments_btn_text); ?></a>
                 <?php endif; ?>
             </div>
             <figure class="diamond" data-aos="fade-left" data-aos-delay="400">

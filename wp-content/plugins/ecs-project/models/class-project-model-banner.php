@@ -107,6 +107,13 @@ class Project_Model_Banner
         ));
 
         $cmb->add_field(array(
+            'name'    => 'Texto Descriptivo',
+            'desc'    => 'Texto que aparecerá en el panel de acción lateral (ej: "Eleva tu empresa. Te esperamos en el norte de Bogotá.")',
+            'id'      => 'banner_description',
+            'type'    => 'textarea_small',
+        ));
+
+        $cmb->add_field(array(
             'name'    => 'Texto del Botón',
             'desc'    => 'Texto que aparecerá en el botón de llamada a la acción',
             'id'      => 'banner_button_text',
@@ -115,9 +122,16 @@ class Project_Model_Banner
 
         $cmb->add_field(array(
             'name'    => 'Enlace del Botón',
-            'desc'    => 'URL a la que dirigirá el botón (opcional)',
+            'desc'    => 'URL a la que dirigirá el botón',
             'id'      => 'banner_button_link',
             'type'    => 'text_url',
+        ));
+
+        $cmb->add_field(array(
+            'name'    => 'Mostrar Logo',
+            'desc'    => 'Activa esta opción para mostrar el logo de Colina en este banner',
+            'id'      => 'banner_show_logo',
+            'type'    => 'checkbox',
         ));
     }
 

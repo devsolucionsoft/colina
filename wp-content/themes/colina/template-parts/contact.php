@@ -1,6 +1,15 @@
 <section class="contact-section" id="contacto" data-aos="fade-up">
+    <div class="decorative-rectangles contact-rectangles" data-aos="fade-in" data-aos-delay="100" data-aos-anchor-placement="top-bottom">
+        <div class="rectangle rect-1"></div>
+        <div class="rectangle rect-2"></div>
+        <div class="rectangle rect-3"></div>
+    </div>
+
     <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
         <div class="info-header">
+            <div class="contact-logo" data-aos="fade-down" data-aos-delay="150">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/logo-colina-black.svg" alt="Colina">
+            </div>
             <h2 class="section-title">Contáctanos</h2>
             <h3 class="section-subtitle">Estamos para ayudarte</h3>
         </div>

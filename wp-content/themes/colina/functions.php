@@ -40,6 +40,7 @@ function get_companies_clients()
 
     foreach ($clients as $client) {
         $client_image = get_post_meta($client->ID, 'client_images', true);
+        $client_url = get_post_meta($client->ID, 'client_url', true);
         $image_url = '';
 
         if ($client_image) {
@@ -54,6 +55,7 @@ function get_companies_clients()
             'id' => $client->ID,
             'title' => $client->post_title,
             'image' => $image_url,
+            'url' => $client_url,
             'excerpt' => $client->post_excerpt,
             'content' => $client->post_content
         );

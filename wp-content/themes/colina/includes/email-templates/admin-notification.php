@@ -2,7 +2,7 @@
 
 /**
  * Admin Notification Email Template
- * Variables available: $name, $email, $subject, $message
+ * Variables available: $name, $email, $subject, $message, $radicado_number
  */
 
 $site_name = get_bloginfo('name');
@@ -274,6 +274,11 @@ $date = current_time('d/m/Y H:i');
         <div class="header">
             <h1>Nueva Consulta Recibida</h1>
             <p>Formulario de contacto - <?php echo $date; ?></p>
+        </div>
+
+        <!-- Radicado Number -->
+        <div style="background: #d71f26; color: white; padding: 20px; text-align: center; margin: 0;">
+            <h2 style="margin: 0; color: white; font-size: 24px;">Número de Radicado: <?php echo esc_html($radicado_number); ?></h2>
         </div>
 
         <!-- Content -->

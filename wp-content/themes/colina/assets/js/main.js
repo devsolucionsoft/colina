@@ -365,6 +365,85 @@ document.addEventListener("DOMContentLoaded", () => {
             },
           },
         });
+
+        // Initialize pagination functionality
+        const paginationBullets =
+          document.querySelectorAll(".pagination-bullet");
+        const panelText = document.getElementById("hero-panel-text");
+        const panelButton = document.getElementById("hero-panel-button");
+        const cornerLogo = document.getElementById("hero-corner-logo");
+
+        // Function to update panel content
+        const updatePanelContent = (slideIndex) => {
+          const allSlides = document.querySelectorAll(".hero-slide");
+          const totalSlides = allSlides.length;
+
+          // Ensure we have a valid index within bounds
+          const validIndex =
+            ((slideIndex % totalSlides) + totalSlides) % totalSlides;
+          const currentSlide = allSlides[validIndex];
+
+          if (currentSlide && panelText && panelButton) {
+            const description = currentSlide.getAttribute("data-description");
+            const buttonText = currentSlide.getAttribute("data-button-text");
+            const buttonLink = currentSlide.getAttribute("data-button-link");
+            const showLogo = currentSlide.getAttribute("data-show-logo") === "1";
+
+            if (description) panelText.textContent = description;
+            if (buttonText) panelButton.textContent = buttonText;
+            if (buttonLink) panelButton.href = buttonLink;
+
+            // Handle logo visibility based on current slide
+            if (cornerLogo) {
+              if (showLogo) {
+                cornerLogo.style.display = "block";
+              } else {
+                cornerLogo.style.display = "none";
+              }
+            }
+          }
+        };
+
+        // Update active bullet and panel content on slide change
+        heroBannerSwiper.on("slideChange", function () {
+          const currentIndex = this.realIndex;
+
+          paginationBullets.forEach((bullet, index) => {
+            bullet.classList.toggle("active", index === currentIndex);
+          });
+
+          // Update panel content for current slide using realIndex
+          updatePanelContent(currentIndex);
+        });
+
+        // Additional event listener for transition end to ensure sync
+        heroBannerSwiper.on("slideChangeTransitionEnd", function () {
+          const currentIndex = this.realIndex;
+          updatePanelContent(currentIndex);
+
+          // Double check pagination bullets
+          paginationBullets.forEach((bullet, index) => {
+            bullet.classList.toggle("active", index === currentIndex);
+          });
+        });
+
+        // Add click functionality to bullets
+        paginationBullets.forEach((bullet, index) => {
+          bullet.addEventListener("click", () => {
+            heroBannerSwiper.slideToLoop(index); // Use slideToLoop for better loop handling
+            // Update panel content immediately when clicking bullet
+            setTimeout(() => {
+              updatePanelContent(index);
+              // Ensure correct bullet is active
+              paginationBullets.forEach((b, i) => {
+                b.classList.toggle("active", i === index);
+              });
+            }, 50); // Small delay to ensure swiper has updated
+          });
+        });
+
+        // Initialize with first slide
+        updatePanelContent(0);
       }
     };
 

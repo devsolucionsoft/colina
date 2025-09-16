@@ -29,6 +29,30 @@ class ColinaContactForm
             'nonce' => wp_create_nonce('contact_form_nonce')
         )));
     }
+
+    /**
+     * Genera un número de radicado único
+     * Formato: COL-YYYYMMDD-XXXX (COL + Fecha + Contador de 4 dígitos)
+     */
+    private function generate_radicado_number()
+    {
+        $date = current_time('Ymd'); // Formato: 20231215
+        $prefix = 'COL-' . $date . '-';
+
+        // Obtener el contador del día actual
+        $option_name = 'colina_radicado_counter_' . $date;
+        $counter = get_option($option_name, 0);
+        $counter++;
+
+        // Actualizar el contador
+        update_option($option_name, $counter);
+
+        // Formatear con 4 dígitos (0001, 0002, etc.)
+        $radicado = $prefix . str_pad($counter, 4, '0', STR_PAD_LEFT);
+
+        return $radicado;
+    }
+
     public function handle_contact_form()
     {
         // Verificar que tenemos los datos necesarios
@@ -48,6 +72,9 @@ class ColinaContactForm
                 'data' => 'Token de seguridad inválido'
             )));
         }
+
+        // Generar número de radicado único
+        $radicado_number = $this->generate_radicado_number();
 
         // Sanitize and validate input
         $name = sanitize_text_field($_POST['name']);
@@ -82,13 +109,13 @@ class ColinaContactForm
         }
 
         // Send emails
-        $admin_sent = $this->send_admin_notification($name, $email, $subject, $message);
-        $user_sent = $this->send_user_confirmation($name, $email, $subject);
+        $admin_sent = $this->send_admin_notification($name, $email, $subject, $message, $radicado_number);
+        $user_sent = $this->send_user_confirmation($name, $email, $subject, $radicado_number);
 
         if ($admin_sent && $user_sent) {
             wp_die(json_encode(array(
                 'success' => true,
-                'data' => 'Mensaje enviado exitosamente'
+                'data' => 'Mensaje enviado exitosamente. Número de radicado: ' . $radicado_number
             )));
         } else {
             wp_die(json_encode(array(
@@ -101,12 +128,12 @@ class ColinaContactForm
     /**
      * Send admin notification email
      */
-    private function send_admin_notification($name, $email, $subject, $message)
+    private function send_admin_notification($name, $email, $subject, $message, $radicado_number)
     {
         $admin_email = 'colinaoffice@gmail.com';
         $site_name = get_bloginfo('name');
 
-        $email_subject = "[{$site_name}] Nueva consulta: {$subject}";
+        $email_subject = "[{$site_name}] Radicado #{$radicado_number} - {$subject}";
 
         // Load email template
         $template_path = get_template_directory() . '/includes/email-templates/admin-notification.php';
@@ -116,7 +143,7 @@ class ColinaContactForm
             include $template_path;
             $email_body = ob_get_clean();
         } else {
-            $email_body = $this->get_admin_email_fallback($name, $email, $subject, $message);
+            $email_body = $this->get_admin_email_fallback($name, $email, $subject, $message, $radicado_number);
         }
 
         // Headers para WP Mail SMTP
@@ -132,12 +159,12 @@ class ColinaContactForm
     /**
      * Send user confirmation email
      */
-    private function send_user_confirmation($name, $email, $subject)
+    private function send_user_confirmation($name, $email, $subject, $radicado_number)
     {
         $site_name = get_bloginfo('name');
         $admin_email = 'colinaoffice@gmail.com';
 
-        $email_subject = "Confirmación de recepción - {$site_name}";
+        $email_subject = "Confirmación Radicado #{$radicado_number} - {$site_name}";
 
         // Load email template
         $template_path = get_template_directory() . '/includes/email-templates/user-confirmation.php';
@@ -147,7 +174,7 @@ class ColinaContactForm
             include $template_path;
             $email_body = ob_get_clean();
         } else {
-            $email_body = $this->get_user_email_fallback($name, $subject);
+            $email_body = $this->get_user_email_fallback($name, $subject, $radicado_number);
         }
 
         // Headers para WP Mail SMTP
@@ -162,7 +189,7 @@ class ColinaContactForm
     /**
      * Fallback admin email template
      */
-    private function get_admin_email_fallback($name, $email, $subject, $message)
+    private function get_admin_email_fallback($name, $email, $subject, $message, $radicado_number)
     {
         $site_name = get_bloginfo('name');
         $site_url = home_url();
@@ -174,6 +201,10 @@ class ColinaContactForm
                 <h2 style='color: #d71f26; border-bottom: 2px solid #d71f26; padding-bottom: 10px;'>
                     Nueva consulta recibida
                 </h2>
+                
+                <div style='background: #d71f26; color: white; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;'>
+                    <h3 style='margin: 0; color: white;'>Número de Radicado: {$radicado_number}</h3>
+                </div>
                 
                 <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
                     <h3>Detalles del contacto:</h3>
@@ -198,7 +229,7 @@ class ColinaContactForm
     /**
      * Fallback user email template
      */
-    private function get_user_email_fallback($name, $subject)
+    private function get_user_email_fallback($name, $subject, $radicado_number)
     {
         $site_name = get_bloginfo('name');
         $site_url = home_url();
@@ -211,12 +242,18 @@ class ColinaContactForm
                     ¡Gracias por contactarnos!
                 </h2>
                 
+                <div style='background: #d71f26; color: white; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;'>
+                    <h3 style='margin: 0; color: white;'>Tu número de radicado es: {$radicado_number}</h3>
+                    <p style='margin: 5px 0 0 0; color: white;'>Guarda este número para futuras referencias</p>
+                </div>
+                
                 <p>Hola {$name},</p>
                 
                 <p>Hemos recibido tu consulta sobre <strong>{$subject}</strong> y nos pondremos en contacto contigo lo antes posible.</p>
                 
                 <div style='background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;'>
                     <p><strong>Tiempo estimado de respuesta:</strong> 24-48 horas laborales</p>
+                    <p><strong>Número de radicado:</strong> {$radicado_number}</p>
                 </div>
                 
                 <p>Mientras tanto, puedes visitar nuestro sitio web para más información:</p>
