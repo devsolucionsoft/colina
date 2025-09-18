@@ -59,3 +59,10 @@
         };
     </script>
 </header>
+
+<a class="whatsapp-link" href="https://wa.me/<?php echo esc_attr(str_replace(['+', ' ', '-'], '', get_company_info('company_phone'))); ?>" target="_blank" rel="noopener noreferrer">
+    <div id="whatsapp-button">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/whatsapp.png" alt="Habla con nosotros por WhatsApp" />
+        <span class="tooltip">¡Hola! Estamos aquí para ayudarte 👉🏻</span>
+    </div>
+</a>
