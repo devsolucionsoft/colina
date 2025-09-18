@@ -179,5 +179,123 @@ function optionsframework_options()
         'type' => 'textarea',
     );
 
+    /**
+     * Principios Corporativos
+     */
+    $options[] = array(
+        'name' => __('Principios Corporativos', 'options_check'),
+        'type' => 'heading'
+    );
+
+    // === TARJETA 1 - MISIÓN ===
+    $options[] = array(
+        'name' => __('Tarjeta 1 - Imagen/Icono', 'ss-translate'),
+        'desc' => __('Imagen o icono para la primera tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_1_image',
+        'type' => 'upload',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 1 - Título', 'ss-translate'),
+        'desc' => __('Título de la primera tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_1_title',
+        'type' => 'text',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 1 - Contenido', 'ss-translate'),
+        'desc' => __('Contenido de la primera tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_1_content',
+        'type' => 'textarea',
+    );
+
+    // === TARJETA 2 - VISIÓN ===
+    $options[] = array(
+        'name' => __('Tarjeta 2 - Imagen/Icono', 'ss-translate'),
+        'desc' => __('Imagen o icono para la segunda tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_2_image',
+        'type' => 'upload',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 2 - Título', 'ss-translate'),
+        'desc' => __('Título de la segunda tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_2_title',
+        'type' => 'text',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 2 - Contenido', 'ss-translate'),
+        'desc' => __('Contenido de la segunda tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_2_content',
+        'type' => 'textarea',
+    );
+
+    // === TARJETA 3 - EXCELENCIA E INNOVACIÓN ===
+    $options[] = array(
+        'name' => __('Tarjeta 3 - Imagen/Icono', 'ss-translate'),
+        'desc' => __('Imagen o icono para la tercera tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_3_image',
+        'type' => 'upload',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 3 - Título', 'ss-translate'),
+        'desc' => __('Título de la tercera tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_3_title',
+        'type' => 'text',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 3 - Contenido', 'ss-translate'),
+        'desc' => __('Contenido de la tercera tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_3_content',
+        'type' => 'textarea',
+    );
+
+    // === TARJETA 4 - INTEGRIDAD Y COLABORACIÓN ===
+    $options[] = array(
+        'name' => __('Tarjeta 4 - Imagen/Icono', 'ss-translate'),
+        'desc' => __('Imagen o icono para la cuarta tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_4_image',
+        'type' => 'upload',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 4 - Título', 'ss-translate'),
+        'desc' => __('Título de la cuarta tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_4_title',
+        'type' => 'text',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 4 - Contenido', 'ss-translate'),
+        'desc' => __('Contenido de la cuarta tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_4_content',
+        'type' => 'textarea',
+    );
+
+    // === TARJETA 5 - SOSTENIBILIDAD Y RESPONSABILIDAD ===
+    $options[] = array(
+        'name' => __('Tarjeta 5 - Imagen/Icono', 'ss-translate'),
+        'desc' => __('Imagen o icono para la quinta tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_5_image',
+        'type' => 'upload',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 5 - Título', 'ss-translate'),
+        'desc' => __('Título de la quinta tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_5_title',
+        'type' => 'text',
+    );
+
+    $options[] = array(
+        'name' => __('Tarjeta 5 - Contenido', 'ss-translate'),
+        'desc' => __('Contenido de la quinta tarjeta de principios', 'ss-translate'),
+        'id' => 'principle_5_content',
+        'type' => 'textarea',
+    );
+
     return $options;
 }
