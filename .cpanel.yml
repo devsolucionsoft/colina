@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/colina/public_html/
+    - /bin/rsync -av --exclude 'wp-content/uploads' --exclude 'wp-config.php' ./ $DEPLOYPATH
