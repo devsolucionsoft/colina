@@ -1,5 +1,6 @@
 <?php
-$theme_options = get_option(optionsframework_option_name());
+$option_name = preg_replace("/\W/", "_", strtolower(get_option('stylesheet')));
+$theme_options = get_option($option_name);
 ?>
 
 <div class="principles-grid">

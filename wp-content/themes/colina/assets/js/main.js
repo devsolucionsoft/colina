@@ -644,9 +644,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("resize", () => {
-    if (reviewsSwiper) {
-      reviewsSwiper.update();
-    }
     if (companiesSwiper) {
       companiesSwiper.update();
     }
