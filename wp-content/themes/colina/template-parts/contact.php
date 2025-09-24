@@ -88,7 +88,8 @@
                 <div class="select-container">
                     <select id="contact-subject" name="subject" required>
                         <option value="" disabled>Selecciona una opción</option>
-                        <option value="PQR - Solicitudes" selected>PQR - Solicitudes</option>
+                        <option value="PQR">PQR</option>
+                        <option value="Solicitudes">Solicitudes</option>
                     </select>
                     <div class="select-arrow">
                         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
