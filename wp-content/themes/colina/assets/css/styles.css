@@ -1378,7 +1378,7 @@ a {
   flex-direction: column;
   gap: 40px;
   padding: 100px 5%;
-  background: linear-gradient(89.76deg, #444546 -15.19%, #a7a9ac 27.01%, #ffffff 53.99%, #a7a9ac 73.31%, #444546 99.93%);
+  background-color: white;
 }
 @media (max-width: 768px) {
   .payments .information {
@@ -1859,15 +1859,9 @@ a {
 }
 .hero-banner .hero-corner-logo {
   position: absolute;
-  bottom: 22%;
-  right: 20px;
+  top: 5%;
+  left: 5%;
   z-index: 150;
-}
-@media (max-width: 768px) {
-  .hero-banner .hero-corner-logo {
-    bottom: 32%;
-    right: 15px;
-  }
 }
 .hero-banner .hero-corner-logo img {
   height: 60px;
