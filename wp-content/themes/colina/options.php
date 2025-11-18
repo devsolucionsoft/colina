@@ -84,6 +84,14 @@ function optionsframework_options()
         'options' => $options_pages
     );
 
+    $options[] = array(
+        'name' => __('Seleccione la página de Instalaciones', 'ss-translate'),
+        'desc' => __('Con esto agregaremos los campos en el administrador y el front de la página de Instalaciones', 'ss-translate'),
+        'id' => 'instalaciones_page',
+        'type' => 'select',
+        'options' => $options_pages
+    );
+
     /**
      * Información de la Empresa
      */

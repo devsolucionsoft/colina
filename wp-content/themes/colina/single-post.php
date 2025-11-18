@@ -35,8 +35,6 @@
         </div>
     </section>
 
-    <?php get_template_part('template-parts/companies-section'); ?>
-
     <div class="text-container">
         <div class="content-body ">
             <?php the_content(); ?>
@@ -66,6 +64,8 @@
     </div>
 
     <?php get_template_part('template-parts/news-section'); ?>
+
+    <?php get_template_part('template-parts/companies-section'); ?>
 
     <?php get_footer(); ?>
 </body>

@@ -92,13 +92,35 @@ if ($banners): ?>
                                 }
                             }
 
+                            // Get video background
+                            $background_video = get_post_meta($banner_id, 'banner_video', true);
+                            if (empty($background_video)) {
+                                $background_video = get_post_meta($banner_id, 'bannerhome_banner_video', true);
+                            }
+
+                            $video_url = '';
+                            if (!empty($background_video)) {
+                                if (is_numeric($background_video)) {
+                                    $video_url = wp_get_attachment_url($background_video);
+                                } else {
+                                    $video_url = $background_video;
+                                }
+                            }
+
+                            $has_video = !empty($video_url);
+
                         ?>
-                            <div class="swiper-slide hero-slide"
+                            <div class="swiper-slide hero-slide <?php echo $has_video ? 'has-video' : ''; ?>"
                                 data-description="<?php echo esc_attr($description); ?>"
                                 data-button-text="<?php echo esc_attr($panel_button_text); ?>"
                                 data-button-link="<?php echo esc_attr($panel_button_link); ?>"
                                 data-show-logo="<?php echo $banner_show_logo ? '1' : '0'; ?>">
-                                <div class="slide-background" style="background-image: url('<?php echo esc_url($background_url); ?>');" data-bg="<?php echo esc_attr($background_url); ?>">
+                                <div class="slide-background" <?php if (!$has_video): ?>style="background-image: url('<?php echo esc_url($background_url); ?>');" data-bg="<?php echo esc_attr($background_url); ?>" <?php endif; ?>>
+                                    <?php if ($has_video): ?>
+                                        <video class="slide-video" autoplay muted loop playsinline>
+                                            <source src="<?php echo esc_url($video_url); ?>" type="video/mp4">
+                                        </video>
+                                    <?php endif; ?>
                                     <div class="slide-overlay"></div>
                                 </div>
                                 <div class="slide-content">

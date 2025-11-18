@@ -14,6 +14,8 @@ require get_template_directory() . '/includes/backend/fields_home.php';
 require get_template_directory() . '/includes/backend/fields_about_us.php';
 require get_template_directory() . '/includes/backend/fields_normatividad.php';
 require get_template_directory() . '/includes/backend/fields_noticias.php';
+require get_template_directory() . '/includes/backend/fields_contacto.php';
+require get_template_directory() . '/includes/backend/fields_instalaciones.php';
 
 function remove_editor()
 {

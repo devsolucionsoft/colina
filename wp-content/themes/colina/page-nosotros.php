@@ -149,11 +149,6 @@
         </section>
     </section>
 
-
-    <div data-aos="fade-up" data-aos-duration="800">
-        <?php get_template_part('template-parts/companies-section'); ?>
-    </div>
-
     <?php $faqs = get_post_meta($about_id, 'about_faq', true);
     $faq_title = get_post_meta($about_id, 'about_faq_title', true);
     $faq_subtitle = get_post_meta($about_id, 'about_faq_subtitle', true);
@@ -210,6 +205,11 @@
     <div data-aos="fade-up" data-aos-duration="800">
         <?php get_template_part('template-parts/contact'); ?>
     </div>
+
+    <div data-aos="fade-up" data-aos-duration="800">
+        <?php get_template_part('template-parts/companies-section'); ?>
+    </div>
+
     <?php get_footer(); ?>
 </body>
 

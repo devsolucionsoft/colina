@@ -45,45 +45,6 @@ function cmb2_fields_home()
         'type' => 'text_url',
     ));
 
-    // === PAGOS ===
-    $cmb->add_field(array(
-        'name' => 'Título Pagos',
-        'id'   => 'payments_title',
-        'type' => 'text',
-    ));
-    $cmb->add_field(array(
-        'name' => 'Subtítulo Pagos',
-        'id'   => 'payments_subtitle',
-        'type' => 'text',
-    ));
-    $cmb->add_field(array(
-        'name' => 'Texto Pagos',
-        'id'   => 'payments_text',
-        'type' => 'wysiwyg',
-        'options' => array(
-            'media_buttons' => false,
-            'teeny'         => true,
-        ),
-    ));
-    $cmb->add_field(array(
-        'name' => 'Texto Botón Pagos',
-        'id'   => 'payments_btn_text',
-        'type' => 'text',
-    ));
-    $cmb->add_field(array(
-        'name' => 'Link Botón Pagos',
-        'id'   => 'payments_btn_link',
-        'type' => 'text_url',
-    ));
-
-    // === Imagen Diamond ===
-    $cmb->add_field(array(
-        'name' => 'Imagen Diamond',
-        'id'   => 'diamond_image',
-        'type' => 'file',
-        'desc' => 'Imagen para el diamond de la sección Pagos',
-    ));
-
     // === NORMATIVIDAD Y DOCUMENTOS ===
     $cmb->add_field(array(
         'name' => 'Título Documentos',

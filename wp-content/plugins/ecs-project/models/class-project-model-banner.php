@@ -87,9 +87,25 @@ class Project_Model_Banner
 
         $cmb->add_field(array(
             'name'    => 'Imagen de Fondo',
-            'desc'    => 'Selecciona la imagen de fondo del banner (recomendado: 1920x1080px)',
+            'desc'    => 'Selecciona la imagen de fondo del banner (recomendado: 1920x1080px). Si agregas un video, la imagen se usará como respaldo.',
             'id'      => 'banner_background',
             'type'    => 'file'
+        ));
+
+        $cmb->add_field(array(
+            'name'    => 'Video de Fondo',
+            'desc'    => 'Selecciona un video para usar como fondo del banner (formato MP4 recomendado). El video tendrá prioridad sobre la imagen de fondo.',
+            'id'      => 'banner_video',
+            'type'    => 'file',
+            'options' => array(
+                'url' => false,
+            ),
+            'text'    => array(
+                'add_upload_file_text' => 'Agregar Video'
+            ),
+            'query_args' => array(
+                'type' => 'video/mp4',
+            ),
         ));
 
         $cmb->add_field(array(

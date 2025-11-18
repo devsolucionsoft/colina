@@ -13,11 +13,7 @@
 
         <?php get_template_part('template-parts/hero-banner'); ?>
 
-        <div data-aos="fade-up" data-aos-duration="600">
-            <?php get_template_part('template-parts/companies-section'); ?>
-        </div>
-
-        <section class="about-and-documents" data-aos="fade-up" data-aos-duration="800">
+        <!-- <section class="about-and-documents" data-aos="fade-up" data-aos-duration="800">
             <?php
             $home_id = of_get_option('home_page');
             $about_title = get_post_meta($home_id, 'about_title', true);
@@ -77,7 +73,7 @@
                         </div>
                     </div>
 
-                    <!-- <?php if ($documents_count > 1): ?>
+                    <?php if ($documents_count > 1): ?>
                         <div class="documents-swiper-container" data-aos="fade-up" data-aos-delay="600">
                             <div class="swiper documents-swiper">
                                 <div class="swiper-wrapper">
@@ -141,54 +137,10 @@
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?> -->
+                    <?php endif; ?>
                 </section>
             <?php endif; ?>
-        </section>
-
-
-        <?php
-        $payments_title = get_post_meta($home_id, 'payments_title', true);
-        $payments_subtitle = get_post_meta($home_id, 'payments_subtitle', true);
-        $payments_text = get_post_meta($home_id, 'payments_text', true);
-        $payments_btn_text = get_post_meta($home_id, 'payments_btn_text', true);
-        $payments_btn_link = get_post_meta($home_id, 'payments_btn_link', true);
-        $diamond_image = get_post_meta($home_id, 'diamond_image', true);
-        ?>
-        <?php
-        // Preparar background dinámico para la sección payments
-        $payments_bg_style = '';
-        if ($diamond_image) {
-            $payments_bg_style = "background-image: url('" . esc_url($diamond_image) . "'); background-repeat: no-repeat; background-position: top left; background-size: cover;";
-        }
-        ?>
-        <?php if ($diamond_image): ?>
-            <style>
-                @media (max-width: 768px) {
-                    .payments::after {
-                        background-image: url('<?php echo esc_url($diamond_image); ?>') !important;
-                    }
-                }
-            </style>
-        <?php endif; ?>
-        <section class="payments" <?php if ($payments_bg_style): ?> style="<?php echo $payments_bg_style; ?>" <?php endif; ?> data-aos="fade-up" data-aos-duration="800">
-            <div class="information" data-aos="fade-right" data-aos-delay="200">
-                <div class="text" data-aos="fade-up" data-aos-delay="300">
-                    <?php if ($payments_title): ?><h3 data-aos="fade-right" data-aos-delay="400"><?php echo esc_html($payments_title); ?></h3><?php endif; ?>
-                    <?php if ($payments_subtitle): ?><h2 data-aos="fade-right" data-aos-delay="500"><?php echo esc_html($payments_subtitle); ?></h2><?php endif; ?>
-                    <?php if ($payments_text): ?><p data-aos="fade-up" data-aos-delay="600"><?php echo $payments_text; ?></p><?php endif; ?>
-                </div>
-                <?php if ($payments_btn_text): ?>
-                    <a class="btn" <?php echo $payments_btn_link ? 'href="' . esc_url($payments_btn_link) . '"' : 'onclick="return false;" style="cursor: default;"'; ?> data-aos="zoom-in" data-aos-delay="700"><?php echo esc_html($payments_btn_text); ?></a>
-                <?php endif; ?>
-            </div>
-            <figure class="diamond" data-aos="fade-left" data-aos-delay="400">
-                <div class="diamond-shape" data-aos="flip-right" data-aos-delay="600">
-                    <div class="left" <?php if ($diamond_image): ?> style="background-image: url('<?php echo esc_url($diamond_image); ?>'); background-size: cover; background-position: right center; background-repeat: no-repeat;" <?php endif; ?> data-aos="slide-right" data-aos-delay="800"></div>
-                    <div class="right" data-aos="slide-left" data-aos-delay="900"></div>
-                </div>
-            </figure>
-        </section>
+        </section> -->
 
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
             <?php get_template_part('template-parts/news-section'); ?>
@@ -196,6 +148,10 @@
 
         <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
             <?php get_template_part('template-parts/contact'); ?>
+        </div>
+
+        <div data-aos="fade-up" data-aos-duration="600">
+            <?php get_template_part('template-parts/companies-section'); ?>
         </div>
 
         <?php get_footer(); ?>
