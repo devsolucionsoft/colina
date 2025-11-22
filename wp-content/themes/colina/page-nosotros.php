@@ -203,10 +203,6 @@
     </section>
 
     <div data-aos="fade-up" data-aos-duration="800">
-        <?php get_template_part('template-parts/contact'); ?>
-    </div>
-
-    <div data-aos="fade-up" data-aos-duration="800">
         <?php get_template_part('template-parts/companies-section'); ?>
     </div>
 

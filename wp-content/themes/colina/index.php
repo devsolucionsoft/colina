@@ -146,10 +146,6 @@
             <?php get_template_part('template-parts/news-section'); ?>
         </div>
 
-        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
-            <?php get_template_part('template-parts/contact'); ?>
-        </div>
-
         <div data-aos="fade-up" data-aos-duration="600">
             <?php get_template_part('template-parts/companies-section'); ?>
         </div>
