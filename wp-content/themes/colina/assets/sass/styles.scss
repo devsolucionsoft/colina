@@ -3081,7 +3081,7 @@ a {
     display: flex;
     flex-direction: column;
     gap: 24px;
-
+    align-items: center;
     .back {
       display: flex;
       flex-direction: row;
@@ -3107,6 +3107,12 @@ a {
       align-items: center;
       justify-content: center;
       gap: 16px;
+      padding: 10px 16px;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 8px;
+      width: fit-content;
       .parent {
         display: flex;
         flex-direction: row;

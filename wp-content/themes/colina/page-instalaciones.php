@@ -26,7 +26,7 @@
                 <div class="parent">
                     <span>Inicio</span>
                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.08398 3.75L8.08398 6.75L5.08398 9.75" stroke="black" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5.08398 3.75L8.08398 6.75L5.08398 9.75" stroke="#ffffff" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
                 <span class="current">Instalaciones</span>
