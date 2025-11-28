@@ -166,10 +166,24 @@ document.addEventListener("DOMContentLoaded", function () {
 // Animación de conteo mejorada con easeOutExpo y rebote visual
 function animateCountUp(element, target, duration = 2000) {
   let startTimestamp = null;
-  const isInt = /^\+?\d+$/.test(target.replace(/\D/g, ""));
-  const cleanTarget = parseFloat(target.replace(/[^\d\.]/g, ""));
-  const suffix = target.replace(/^[\d\+\.]+/, "");
-  const prefix = target.match(/^\+/) ? "+" : "";
+
+  // Parse strings that mix text and numbers, e.g., "Desde 2029" or "+120k usuarios"
+  // Capture optional text before, the number, and optional text after
+  const match = target.match(/^(.*?)([+\-]?\d+[\d,.]*)(.*)$/);
+
+  let textBefore = "";
+  let textAfter = "";
+  let numericStr = target;
+
+  if (match) {
+    textBefore = match[1] || "";
+    numericStr = match[2] || "0";
+    textAfter = match[3] || "";
+  }
+
+  const isInt = /^[-+]?\d+$/.test(numericStr.replace(/[^\d-+]/g, ""));
+  const cleanTarget = parseFloat(numericStr.replace(/[^\d\.\-]/g, ""));
+  const hasPlusPrefix = /^\+/.test(numericStr);
   // easeOutExpo para suavidad
   function easeOutExpo(x) {
     return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
@@ -190,12 +204,13 @@ function animateCountUp(element, target, duration = 2000) {
       ? Math.floor(eased * cleanTarget * bounced)
       : (eased * cleanTarget * bounced).toFixed(0);
     if (progress >= 1) value = cleanTarget;
-    element.textContent = `${prefix}${value}${suffix}`;
+    const prefixOut = hasPlusPrefix ? "+" : "";
+    element.textContent = `${textBefore}${prefixOut}${value}${textAfter}`;
     // Sin efecto de color animado
     if (progress < 1.08) {
       window.requestAnimationFrame(step);
     } else {
-      element.textContent = `${prefix}${cleanTarget}${suffix}`;
+      element.textContent = `${textBefore}${prefixOut}${cleanTarget}${textAfter}`;
       element.style.color = "";
     }
   }
